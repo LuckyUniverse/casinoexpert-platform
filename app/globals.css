@@ -50,3 +50,12 @@ p.tagline {
   margin: 0;
   line-height: 1.5;
 }
+
+p.coming-soon {
+  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
+  color: var(--accent);
+  margin: 1.5rem 0 0;
+  letter-spacing: 0.02em;
+  font-style: italic;
+  opacity: 0.85;
+}

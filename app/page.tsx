@@ -7,6 +7,7 @@ export default function Home() {
       <p className="tagline">
         Your ultimate, factual, objective casino guide.
       </p>
+      <p className="coming-soon">Coming soon to a casino near you…</p>
     </main>
   );
 }

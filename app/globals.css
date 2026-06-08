@@ -1,10 +1,66 @@
-:root {
-  --background: #0b0d12;
-  --foreground: #f5f6fa;
-  --accent: #7dd3fc;
-  --muted: #9ca3af;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ----------------------------------------------------------------------------
+ * casinoexpert.ai design tokens
+ *
+ * Single source of truth for the brand. The Eggspert mascot already pins the
+ * core palette (navy / cyan / cream) — these tokens extend that palette into
+ * a working interface system.
+ * --------------------------------------------------------------------------*/
+@theme {
+  /* — Surfaces — */
+  --color-bg: #0b1530;            /* page background — same navy as the Eggspert chip body */
+  --color-bg-elevated: #10182f;   /* cards, navbars */
+  --color-bg-deep: #07101f;       /* hero / footer / contrast surfaces */
+  --color-bg-card: #131f3a;       /* a step above elevated for layered cards */
+  --color-border-subtle: #1d2a4a;
+  --color-border-strong: #2a3a60;
+
+  /* — Foreground — */
+  --color-fg: #f5f6fa;
+  --color-fg-muted: #9aa3b8;
+  --color-fg-subtle: #6b7488;
+
+  /* — Brand accents — */
+  --color-accent: #7dd3fc;        /* the Eggspert chip stripe / primary CTA tint */
+  --color-accent-strong: #38bdf8;
+  --color-accent-deep: #0284c7;
+  --color-cream: #f5e6c8;         /* the Eggspert face-inset cream */
+  --color-blush: #f08aa0;
+  --color-gold: #f1c34a;          /* cash / phase-4 payoff */
+
+  /* — Semantic — */
+  --color-success: #4ade80;
+  --color-warning: #fbbf24;
+  --color-danger: #f87171;
+
+  /* — Typography — */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-display: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Consolas,
+    "Liberation Mono", Menlo, monospace;
+
+  /* — Radii — */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+
+  /* — Shadows — */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset,
+    0 8px 24px rgba(0, 0, 0, 0.35);
+  --shadow-hero: 0 20px 60px rgba(8, 14, 32, 0.6);
+  --shadow-glow-accent: 0 0 28px rgba(125, 211, 252, 0.25);
 }
 
+/* ----------------------------------------------------------------------------
+ * Base styles
+ * --------------------------------------------------------------------------*/
 * {
   box-sizing: border-box;
 }
@@ -13,49 +69,97 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--background);
-  color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-    Ubuntu, Cantarell, "Helvetica Neue", Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
+  line-height: 1.55;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 2rem;
-  text-align: center;
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color 150ms ease-out;
 }
 
-h1 {
-  font-size: clamp(2.25rem, 6vw, 4rem);
-  font-weight: 700;
-  margin: 0 0 1.25rem;
-  letter-spacing: -0.02em;
+a:hover {
+  color: var(--color-accent-strong);
 }
 
-h1 .brand {
-  color: var(--accent);
-}
-
-p.tagline {
-  font-size: clamp(1.1rem, 2.4vw, 1.5rem);
-  color: var(--muted);
-  max-width: 38ch;
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  letter-spacing: -0.015em;
+  line-height: 1.2;
   margin: 0;
-  line-height: 1.5;
 }
 
-p.coming-soon {
-  font-size: clamp(0.95rem, 1.8vw, 1.1rem);
-  color: var(--accent);
-  margin: 1.5rem 0 0;
-  letter-spacing: 0.02em;
-  font-style: italic;
-  opacity: 0.85;
+/* ----------------------------------------------------------------------------
+ * Utility classes used across the chrome and review templates
+ * --------------------------------------------------------------------------*/
+
+/* Visual containers */
+.lu-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .lu-container {
+    padding-inline: 2rem;
+  }
+}
+
+/* Card surface */
+.lu-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Chip button — accent fill */
+.lu-btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+  cursor: pointer;
+}
+
+.lu-btn-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-accent);
+  color: var(--color-bg);
+}
+
+.lu-btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 1.1rem;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-fg);
+  font-weight: 500;
+  border: 1px solid var(--color-border-strong);
+  transition: border-color 150ms ease-out, color 150ms ease-out;
+  cursor: pointer;
+}
+
+.lu-btn-ghost:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }

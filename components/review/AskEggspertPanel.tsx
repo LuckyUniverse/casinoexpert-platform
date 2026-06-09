@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import type { BrandReviewData } from "@/lib/review-types";
-import { Phase1 } from "@/components/eggspert/phases/Phase1";
 
 /**
  * Inline "Ask the Eggspert" panel — appears near the bottom of every brand
@@ -38,7 +38,13 @@ export function AskEggspertPanel({ brand }: { brand: BrandReviewData }) {
           marginBottom: "1.25rem",
         }}
       >
-        <Phase1 size={72} />
+        <Image
+          src="/images/brand/logo-medallion.png"
+          alt=""
+          width={72}
+          height={72}
+          style={{ width: 72, height: 72, objectFit: "contain" }}
+        />
         <div>
           <p
             style={{

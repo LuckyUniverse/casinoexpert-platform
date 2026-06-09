@@ -1,11 +1,12 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Phase1 } from "../eggspert/phases/Phase1";
 
 /**
- * The site's combined mascot + wordmark, used in the header and footer.
+ * casinoexpert.ai logo lockup — medallion icon + tri-colour wordmark.
  *
- * Reuses the Phase 1 Eggspert SVG so the mascot stays consistent with the
- * gamification system. Sized small so it works as a logo lockup.
+ * The wordmark is rendered as live text (not a raster crop) so it stays
+ * crisp at every size and respects user-agent font rendering / accessibility.
+ * The medallion is the AI-rendered round badge sitting beside it.
  */
 export function Wordmark({
   size = 36,
@@ -27,19 +28,36 @@ export function Wordmark({
       }}
       aria-label="casinoexpert.ai home"
     >
-      <span style={{ display: "inline-flex", lineHeight: 0 }}>
-        <Phase1 size={size} />
+      <span
+        style={{
+          display: "inline-flex",
+          lineHeight: 0,
+          width: size,
+          height: size,
+          flexShrink: 0,
+        }}
+      >
+        <Image
+          src="/images/brand/logo-medallion.png"
+          alt="casinoexpert.ai mascot — the Eggspert in a casino chip"
+          width={size}
+          height={size}
+          priority
+          style={{ width: size, height: size, objectFit: "contain" }}
+        />
       </span>
       {showText && (
         <span
           style={{
             fontFamily: "var(--font-display)",
             fontWeight: 700,
-            fontSize: "1.05rem",
+            fontSize: "1.1rem",
             letterSpacing: "-0.01em",
           }}
         >
-          casinoexpert<span style={{ color: "var(--color-accent)" }}>.ai</span>
+          <span>casino</span>
+          <span style={{ color: "var(--color-brand-red)" }}>expert</span>
+          <span style={{ color: "var(--color-accent)" }}>.ai</span>
         </span>
       )}
     </Link>

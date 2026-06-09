@@ -1,8 +1,8 @@
-import { Phase1 } from "@/components/eggspert/phases/Phase1";
+import Image from "next/image";
 
 export default function Home() {
   return (
-    <section className="lu-container" style={{ paddingBlock: "5rem 4rem" }}>
+    <section className="lu-container" style={{ paddingBlock: "4rem 4rem" }}>
       <div
         style={{
           display: "grid",
@@ -16,15 +16,16 @@ export default function Home() {
           <p
             style={{
               display: "inline-block",
-              padding: "0.35rem 0.75rem",
+              padding: "0.35rem 0.85rem",
               borderRadius: 999,
               border: "1px solid var(--color-border-strong)",
               background: "var(--color-bg-elevated)",
               fontSize: "0.78rem",
-              letterSpacing: "0.08em",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
               color: "var(--color-accent)",
               marginBottom: "1.5rem",
+              fontWeight: 600,
             }}
           >
             Coming soon
@@ -36,15 +37,29 @@ export default function Home() {
               marginBottom: "1.25rem",
             }}
           >
-            casinoexpert<span style={{ color: "var(--color-accent)" }}>.ai</span>
+            <span>casino</span>
+            <span style={{ color: "var(--color-brand-red)" }}>expert</span>
+            <span style={{ color: "var(--color-accent)" }}>.ai</span>
           </h1>
           <p
             style={{
-              fontSize: "clamp(1.05rem, 2vw, 1.35rem)",
+              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+              color: "var(--color-fg)",
+              maxWidth: "42ch",
+              marginBottom: "0.65rem",
+              lineHeight: 1.45,
+              fontWeight: 500,
+            }}
+          >
+            Expert insights. Smarter play.
+          </p>
+          <p
+            style={{
+              fontSize: "1rem",
               color: "var(--color-fg-muted)",
-              maxWidth: "38ch",
-              marginBottom: "0.5rem",
+              maxWidth: "42ch",
               lineHeight: 1.5,
+              marginBottom: "0.5rem",
             }}
           >
             Your ultimate, factual, objective casino guide.
@@ -66,10 +81,18 @@ export default function Home() {
           style={{
             display: "flex",
             justifyContent: "center",
-            filter: "drop-shadow(0 18px 36px rgba(0, 0, 0, 0.4))",
+            filter: "drop-shadow(0 22px 36px rgba(0, 0, 0, 0.45))",
           }}
         >
-          <Phase1 size={260} />
+          <Image
+            src="/images/brand/character.png"
+            alt=""
+            width={300}
+            height={378}
+            priority
+            sizes="(max-width: 760px) 220px, 300px"
+            style={{ width: 300, height: "auto" }}
+          />
         </div>
       </div>
 
@@ -77,6 +100,7 @@ export default function Home() {
         @media (max-width: 760px) {
           .lu-home-grid { grid-template-columns: 1fr !important; }
           .lu-home-mascot { order: -1; }
+          .lu-home-mascot img { width: 220px !important; }
         }
       `}</style>
     </section>

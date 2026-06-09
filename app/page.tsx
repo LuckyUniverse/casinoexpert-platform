@@ -85,13 +85,13 @@ export default function Home() {
           }}
         >
           <Image
-            src="/images/brand/character.png"
+            src="/images/brand/logo-medallion.png"
             alt=""
-            width={300}
-            height={378}
+            width={340}
+            height={329}
             priority
-            sizes="(max-width: 760px) 220px, 300px"
-            style={{ width: 300, height: "auto" }}
+            sizes="(max-width: 760px) 240px, 340px"
+            style={{ width: 340, height: "auto" }}
           />
         </div>
       </div>
@@ -100,7 +100,7 @@ export default function Home() {
         @media (max-width: 760px) {
           .lu-home-grid { grid-template-columns: 1fr !important; }
           .lu-home-mascot { order: -1; }
-          .lu-home-mascot img { width: 220px !important; }
+          .lu-home-mascot img { width: 240px !important; }
         }
       `}</style>
     </section>

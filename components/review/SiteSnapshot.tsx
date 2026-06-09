@@ -2,13 +2,15 @@ import Image from "next/image";
 import type { BrandReviewData } from "@/lib/review-types";
 
 /**
- * "What you'll see when you arrive" — a full-page screenshot of the brand's
- * live site, captured from a Vancouver VPN so it matches the rest-of-Canada
- * experience the reader will actually get.
+ * "What you'll see when you arrive" — a cropped preview of the brand's
+ * live homepage, captured from a Vancouver VPN so it matches the
+ * rest-of-Canada experience the reader will get.
  *
- * Renders only when brand.screenshotSrc is set. Visual evidence that
- * matches the editorial: when the page says "C$1,600 across 4 deposits,"
- * the screenshot shows the same offer on the operator's hero.
+ * Renders only when brand.screenshotSrc is set. We show only the
+ * above-the-fold portion (top ~480 px) of the source image so the page
+ * doesn't turn into an unscrollable monolith — the rest of the screenshot
+ * is purely a source asset, not a UI element. Anyone who wants to see
+ * the whole live site can click through.
  */
 export function SiteSnapshot({ brand }: { brand: BrandReviewData }) {
   if (!brand.screenshotSrc) return <></>;
@@ -25,7 +27,7 @@ export function SiteSnapshot({ brand }: { brand: BrandReviewData }) {
     >
       <div
         style={{
-          padding: "1rem 1.5rem",
+          padding: "0.85rem 1.25rem",
           borderBottom: "1px solid var(--color-border-subtle)",
           display: "flex",
           alignItems: "center",
@@ -51,9 +53,10 @@ export function SiteSnapshot({ brand }: { brand: BrandReviewData }) {
           rel="noopener sponsored"
           style={{ fontSize: "0.85rem" }}
         >
-          Open {brand.name} →
+          See it live →
         </a>
       </div>
+
       <div
         style={{
           background:
@@ -61,10 +64,14 @@ export function SiteSnapshot({ brand }: { brand: BrandReviewData }) {
           padding: "1.25rem",
         }}
       >
+        {/* Cropped preview frame */}
         <div
           style={{
+            position: "relative",
+            width: "100%",
+            maxWidth: 880,
             margin: "0 auto",
-            maxWidth: 720,
+            height: 480,
             borderRadius: "var(--radius-md)",
             overflow: "hidden",
             boxShadow: "var(--shadow-hero)",
@@ -73,19 +80,37 @@ export function SiteSnapshot({ brand }: { brand: BrandReviewData }) {
         >
           <Image
             src={brand.screenshotSrc}
-            alt={`Full-page screenshot of ${brand.name}'s homepage, captured from a Vancouver VPN`}
-            width={1500}
-            height={2400}
-            sizes="(max-width: 720px) 100vw, 720px"
-            style={{ width: "100%", height: "auto", display: "block" }}
+            alt={`${brand.name} homepage above the fold, captured from a Vancouver VPN`}
+            fill
+            sizes="(max-width: 880px) 100vw, 880px"
+            style={{
+              objectFit: "cover",
+              objectPosition: "top center",
+            }}
+            priority={false}
+          />
+          {/* Bottom fade — tells the eye there's more page below, doesn't pretend the screenshot ends here */}
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              height: 90,
+              background:
+                "linear-gradient(180deg, rgba(7,16,31,0) 0%, var(--color-bg-deep) 95%)",
+              pointerEvents: "none",
+            }}
           />
         </div>
       </div>
+
       {brand.screenshotCaption && (
         <figcaption
           style={{
-            padding: "0.85rem 1.5rem 1.25rem",
-            fontSize: "0.82rem",
+            padding: "0.6rem 1.5rem 1rem",
+            fontSize: "0.78rem",
             color: "var(--color-fg-subtle)",
             margin: 0,
             textAlign: "center",

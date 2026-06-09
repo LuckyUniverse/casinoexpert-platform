@@ -35,3 +35,6 @@ next-env.d.ts
 # Large source PDFs — extracted content lives in public/images/brand-screenshots
 docs/casinoexpert-casino-screenshots.pdf
 docs/_pdf-text.txt
+
+# Tmp folders left behind if the screenshot extractor is interrupted
+/.tmp-screenshots-raw/

@@ -19,7 +19,7 @@ export type ReviewModuleKey =
   | "brand-history"
   | "featured-game"
   | "sister-comparison"
-  | "eggspert-take";
+  | "expert-verdict";
 
 export type BrandFamily =
   | "bayton-4"
@@ -90,6 +90,12 @@ export interface BrandReviewData {
 
   /* Reputation in practice — written as a single narrative paragraph */
   reputationParagraph: string;
+
+  /**
+   * Signed expert verdict from Andre Weston — ~80–120 words, opinion-led,
+   * written from operator-side knowledge. Drives the ExpertVerdict module.
+   */
+  expertVerdict?: string;
 
   /* CTA */
   ctaLabel?: string;

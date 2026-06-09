@@ -26,7 +26,7 @@ const JACKPOT_CITY_SAMPLE: BrandReviewData = {
     "game-library-spotlight",
     "withdrawal-experience",
     "sister-comparison",
-    "eggspert-take",
+    "expert-verdict",
   ],
   family: "bayton-4",
   sisters: [
@@ -114,7 +114,7 @@ const BETWAY_CASINO_SAMPLE: BrandReviewData = {
     "game-library-spotlight",
     "live-dealer-focus",
     "withdrawal-experience",
-    "eggspert-take",
+    "expert-verdict",
   ],
   family: "betway",
   sisters: [{ slug: "betway-sports", name: "Betway Sports" }],

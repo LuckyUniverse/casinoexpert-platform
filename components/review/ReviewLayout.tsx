@@ -15,7 +15,7 @@ import { WithdrawalExperience } from "./modules/WithdrawalExperience";
 import { BrandHistory } from "./modules/BrandHistory";
 import { FeaturedGame } from "./modules/FeaturedGame";
 import { SisterComparison } from "./modules/SisterComparison";
-import { EggspertTake } from "./modules/EggspertTake";
+import { ExpertVerdict } from "./modules/ExpertVerdict";
 
 const MODULE_REGISTRY: Record<
   ReviewModuleKey,
@@ -30,7 +30,7 @@ const MODULE_REGISTRY: Record<
   "brand-history": BrandHistory,
   "featured-game": FeaturedGame,
   "sister-comparison": SisterComparison,
-  "eggspert-take": EggspertTake,
+  "expert-verdict": ExpertVerdict,
 };
 
 const HERO_REGISTRY = {

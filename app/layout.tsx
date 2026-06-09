@@ -1,30 +1,35 @@
 import type { Metadata } from "next";
-import { SiteHeader } from "@/components/chrome/SiteHeader";
-import { SiteFooter } from "@/components/chrome/SiteFooter";
+import { Geist, Geist_Mono } from "next/font/google";
+import { SiteHeader } from "@/components/layout/SiteHeader";
+import { PageFooter } from "@/components/layout/PageFooter";
 import "./globals.css";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://casinoexpert.ai"),
   title: {
-    default: "casinoexpert.ai — Your Ultimate, Factual, Objective Casino Guide",
+    default: "casinoexpert.ai — Your Ultimate, Factual, Objective Casino Guide for Canada",
     template: "%s | casinoexpert.ai",
   },
   description:
-    "casinoexpert.ai — your ultimate, factual, objective casino guide.",
-  robots: { index: false, follow: false }, // staying noindex until WIP wall comes down
+    "Objective reviews of the online casinos Canadians actually play at — licensing, banking, games, and trust signals laid out plainly.",
+  // Stays noindex while the basic-auth wall is up; flip to true when launching.
+  robots: { index: false, follow: false },
   openGraph: {
     type: "website",
+    locale: "en_CA",
     siteName: "casinoexpert.ai",
-    title: "casinoexpert.ai — Your Ultimate, Factual, Objective Casino Guide",
-    description:
-      "casinoexpert.ai — your ultimate, factual, objective casino guide.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "casinoexpert.ai",
-    description:
-      "casinoexpert.ai — your ultimate, factual, objective casino guide.",
-  },
+  twitter: { card: "summary_large_image" },
 };
 
 export default function RootLayout({
@@ -32,16 +37,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en-CA">
-      <body
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-        }}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SiteHeader />
-        <main style={{ flex: 1 }}>{children}</main>
-        <SiteFooter />
+        {children}
+        <PageFooter />
       </body>
     </html>
   );

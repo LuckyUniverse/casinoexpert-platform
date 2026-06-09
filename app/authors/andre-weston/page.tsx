@@ -1,28 +1,40 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { ANDRE_WESTON } from "@/lib/author-data/andre-weston";
+import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Andre Weston — iGaming Industry Expert",
+  title: "Andre Weston — iGaming Industry Expert | casinoexpert.ai",
   description:
-    "Andre Weston is an iGaming industry expert with 20+ years of experience across casino operations, payments, player protection, VIP management, and platform integrity. He reviews and signs the verdicts on casinoexpert.ai.",
+    "Andre Weston is an iGaming industry expert with 20+ years of operator-side experience across casino operations, payments, player protection, VIP management and platform integrity. He reviews and signs every brand review on casinoexpert.ai.",
   alternates: { canonical: "/authors/andre-weston" },
 };
 
 export default function AndreWestonPage() {
-  const author = ANDRE_WESTON;
-
   const schema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: author.name,
-    jobTitle: author.title,
-    description: author.bioParagraphs[0],
-    url: `https://casinoexpert.ai/authors/${author.slug}`,
-    image: `https://casinoexpert.ai${author.photoSrc}`,
-    sameAs: [author.websiteUrl],
-    knowsAbout: author.expertiseTags,
+    name: "Andre Weston",
+    jobTitle: "iGaming Industry Consultant",
+    description:
+      "Online casino industry expert with over 20 years of experience in casino operations, payments, player protection, fraud prevention, VIP management, and platform integrity.",
+    url: "https://casinoexpert.ai/authors/andre-weston",
+    image: "https://casinoexpert.ai/images/andre-weston.jpg",
+    sameAs: ["https://andreweston.com"],
+    worksFor: {
+      "@type": "Organization",
+      name: "casinoexpert.ai",
+      url: "https://casinoexpert.ai",
+    },
+    knowsAbout: [
+      "Online Casino Operations",
+      "iGaming Regulation",
+      "Player Protection",
+      "Casino Payment Processing",
+      "Responsible Gambling",
+      "VIP Management",
+      "Platform Integrity",
+      "Fraud Prevention",
+    ],
   };
 
   return (
@@ -31,188 +43,121 @@ export default function AndreWestonPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <article className="lu-container" style={{ paddingBlock: "3rem 4rem", maxWidth: 880 }}>
-        {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" style={{ marginBottom: "2rem" }}>
-          <ol
-            style={{
-              display: "flex",
-              gap: "0.5rem",
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              color: "var(--color-fg-subtle)",
-              fontSize: "0.85rem",
-            }}
-          >
-            <li>
-              <Link href="/" style={{ color: "var(--color-fg-muted)" }}>
-                Home
-              </Link>
-            </li>
-            <li aria-hidden="true">›</li>
-            <li>
-              <Link href="/about" style={{ color: "var(--color-fg-muted)" }}>
-                About
-              </Link>
-            </li>
-            <li aria-hidden="true">›</li>
-            <li style={{ color: "var(--color-fg)" }}>{author.name}</li>
-          </ol>
-        </nav>
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4 py-12 max-w-4xl">
+          <nav className="text-sm text-gray-500 mb-8">
+            <Link href="/" className="hover:text-blue-600">Home</Link>
+            <span className="mx-2">›</span>
+            <span className="text-gray-900">Andre Weston</span>
+          </nav>
 
-        {/* Header lockup */}
-        <header
-          style={{
-            display: "grid",
-            gridTemplateColumns: "auto 1fr",
-            gap: "2rem",
-            alignItems: "center",
-            marginBottom: "2.5rem",
-          }}
-          className="lu-author-header"
-        >
-          <div
-            style={{
-              width: 144,
-              height: 144,
-              borderRadius: "50%",
-              overflow: "hidden",
-              border: "3px solid var(--color-accent)",
-              boxShadow: "var(--shadow-card)",
-            }}
-          >
-            <Image
-              src={author.photoSrc}
-              alt={`${author.name} — ${author.title}`}
-              width={144}
-              height={144}
-              priority
-              style={{ objectFit: "cover", width: "100%", height: "100%" }}
-            />
-          </div>
-          <div>
-            <p
-              style={{
-                fontSize: "0.78rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: "var(--color-accent)",
-                margin: "0 0 0.25rem",
-              }}
-            >
-              Expert author
-            </p>
-            <h1 style={{ fontSize: "clamp(2rem, 4.5vw, 2.75rem)", marginBottom: "0.4rem" }}>
-              {author.name}
-            </h1>
-            <p style={{ color: "var(--color-fg-muted)", marginBottom: "0.85rem", fontSize: "1.1rem" }}>
-              {author.title}
-            </p>
-            <p style={{ color: "var(--color-fg-subtle)", fontSize: "0.92rem", margin: 0 }}>
-              <a href={author.websiteUrl} target="_blank" rel="noreferrer">
-                {author.websiteUrl.replace(/^https?:\/\//, "")}
-              </a>
-              {" · "}
-              {author.credentialsLine}
-            </p>
-            <ul
-              style={{
-                listStyle: "none",
-                padding: 0,
-                margin: "1rem 0 0",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "0.5rem",
-              }}
-            >
-              {author.expertiseTags.map((tag) => (
-                <li
-                  key={tag}
-                  style={{
-                    padding: "0.3rem 0.7rem",
-                    background: "var(--color-bg-elevated)",
-                    border: "1px solid var(--color-border-subtle)",
-                    borderRadius: 999,
-                    fontSize: "0.82rem",
-                    color: "var(--color-fg-muted)",
-                  }}
+          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-12">
+            <div className="flex-shrink-0">
+              <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-600 shadow-xl bg-white">
+                <Image
+                  src="/images/andre-weston.jpg"
+                  alt="Andre Weston — iGaming Industry Expert"
+                  width={160}
+                  height={160}
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
+            <div>
+              <h1 className="text-4xl font-bold text-gray-900 mb-2 text-center md:text-left">
+                Andre Weston
+              </h1>
+              <p className="text-xl text-blue-600 font-medium mb-4 text-center md:text-left">
+                iGaming Industry Consultant &amp; Expert Author
+              </p>
+              <p className="text-gray-600 mb-4">
+                <a
+                  href="https://andreweston.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:underline"
                 >
-                  {tag}
-                </li>
-              ))}
+                  andreweston.com
+                </a>
+                {" · "}20+ years in iGaming{" · "}Canada &amp; international markets
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Casino Operations",
+                  "Player Protection",
+                  "Payment Processing",
+                  "VIP Management",
+                  "Responsible Gambling",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-sm font-medium"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="prose prose-lg max-w-none mb-12">
+            <h2>About Andre</h2>
+            <p>
+              Andre Weston is an online casino industry expert with more than twenty years of
+              experience spanning casino operations, payments, player protection, fraud
+              prevention, VIP management, and platform integrity. His expertise is grounded
+              in real operational experience inside major global online casino environments,
+              combined with extensive firsthand player experience across dozens of platforms
+              in Canada and abroad.
+            </p>
+            <p>
+              Having worked across multiple disciplines inside casino operations, Andre has
+              practical knowledge of how the systems function behind the scenes — including
+              withdrawals, payment processing, account restrictions, bonus mechanics,
+              compliance frameworks, and risk-management protocols. That dual perspective of
+              operator-side and player-side experience is what lets him write reviews that
+              are useful rather than promotional.
+            </p>
+            <p>
+              Andre has also travelled extensively to major gambling jurisdictions including
+              Las Vegas, attended international iGaming conferences, and worked across
+              multiple regulatory regimes (UKGC, MGA, Kahnawake, AGCO). The breadth helps
+              him compare how operators behave when they're regulated tightly versus more
+              loosely, and translate that into clear guidance for Canadian players choosing
+              where to play.
+            </p>
+
+            <h2>Role at casinoexpert.ai</h2>
+            <p>
+              Andre signs the expert review on every brand page published on casinoexpert.ai.
+              Each review is written from his operator-side knowledge of how a given casino
+              actually behaves — cashier reliability, KYC process, bonus mechanics, support
+              quality — not from the marketing copy on the operator's site.
+            </p>
+            <p>His specific contributions include:</p>
+            <ul>
+              <li>
+                <strong>Expert verdicts</strong> — Personal assessments of each brand based
+                on operational quality, payment reliability, and player experience
+              </li>
+              <li>
+                <strong>Accuracy verification</strong> — Cross-checking casino data
+                (withdrawal speeds, deposit limits, game counts) against current operator
+                offerings
+              </li>
+              <li>
+                <strong>Regulatory review</strong> — Ensuring licence claims, ADR
+                relationships and certification badges line up against the public registers
+              </li>
+              <li>
+                <strong>Responsible gambling oversight</strong> — Verifying that all content
+                includes appropriate responsible-gambling resources and warnings
+              </li>
             </ul>
           </div>
-        </header>
-
-        {/* Bio */}
-        <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>About Andre</h2>
-          {author.bioParagraphs.map((p, i) => (
-            <p
-              key={i}
-              style={{
-                margin: "0 0 1.1rem",
-                lineHeight: 1.7,
-                color: "var(--color-fg)",
-                fontSize: "1.02rem",
-              }}
-            >
-              {p}
-            </p>
-          ))}
-        </section>
-
-        {/* Areas of expertise */}
-        <section style={{ marginBottom: "3rem" }}>
-          <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>Areas of expertise</h2>
-          <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
-              gap: "1rem",
-            }}
-          >
-            {author.expertiseAreas.map((a) => (
-              <li
-                key={a.title}
-                className="lu-card"
-                style={{ padding: "1.1rem 1.25rem" }}
-              >
-                <h3 style={{ fontSize: "1.05rem", marginBottom: "0.4rem" }}>{a.title}</h3>
-                <p style={{ margin: 0, color: "var(--color-fg-muted)", fontSize: "0.92rem", lineHeight: 1.55 }}>
-                  {a.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        {/* Role */}
-        <section style={{ marginBottom: "2rem" }}>
-          <h2 style={{ fontSize: "1.5rem", marginBottom: "1rem" }}>Role at casinoexpert.ai</h2>
-          <p style={{ lineHeight: 1.7, color: "var(--color-fg)", fontSize: "1.02rem", marginBottom: "0.85rem" }}>
-            Andre signs the expert verdict on every brand review published here. Each verdict is
-            written from his operator-side knowledge of how a given casino actually behaves —
-            cashier reliability, KYC process, bonus mechanics, support quality — not from the
-            marketing copy on the site.
-          </p>
-          <p style={{ lineHeight: 1.7, color: "var(--color-fg)", fontSize: "1.02rem", margin: 0 }}>
-            He also reviews and verifies the factual claims on every page (licensing, license
-            numbers, payout speeds, software providers, T&amp;Cs) before publication, and flags
-            anything that doesn't hold up against current operator behaviour.
-          </p>
-        </section>
-      </article>
-
-      <style>{`
-        @media (max-width: 720px) {
-          .lu-author-header { grid-template-columns: 1fr !important; text-align: center; }
-        }
-      `}</style>
+        </div>
+      </div>
     </>
   );
 }

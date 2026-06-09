@@ -1,46 +1,38 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ReviewLayout } from "@/components/review/ReviewLayout";
-import { allBrandSlugs, getBrand } from "@/lib/brand-data";
+import { BrandReviewTemplate } from "@/components/casino/BrandReviewTemplate";
+import { allCasinoSlugs, getCasino } from "@/lib/casino-data";
 
 interface RouteParams {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateStaticParams() {
-  return allBrandSlugs().map((slug) => ({ slug }));
+  return allCasinoSlugs().map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }: RouteParams): Promise<Metadata> {
   const { slug } = await params;
-  const brand = getBrand(slug);
-  if (!brand) return { title: "Not found" };
+  const casino = getCasino(slug);
+  if (!casino) return { title: "Not found" };
 
-  const title = `${brand.name} review (2026) — verdict, welcome offer, and trust`;
-  const description = brand.editorsTake.slice(0, 158).trim();
+  const title = `${casino.name} review (2026) — Canada`;
+  const description = casino.answerCapsule
+    ? casino.answerCapsule.slice(0, 158)
+    : casino.introduction.slice(0, 158);
 
   return {
     title,
     description,
-    alternates: { canonical: `/casinos/${brand.slug}` },
-    openGraph: {
-      title,
-      description,
-      url: `/casinos/${brand.slug}`,
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-    },
+    alternates: { canonical: `/casinos/${casino.slug}` },
+    openGraph: { title, description, url: `/casinos/${casino.slug}`, type: "article" },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
 
 export default async function BrandReviewPage({ params }: RouteParams) {
   const { slug } = await params;
-  const brand = getBrand(slug);
-  if (!brand) notFound();
-
-  return <ReviewLayout brand={brand} />;
+  const casino = getCasino(slug);
+  if (!casino) notFound();
+  return <BrandReviewTemplate config={casino} />;
 }

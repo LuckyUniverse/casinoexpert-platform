@@ -97,6 +97,16 @@ export interface BrandReviewData {
    */
   expertVerdict?: string;
 
+  /**
+   * Optional path (under /public) to a full-page screenshot of the brand's
+   * live site, captured by Dice from the Vancouver VPN. Renders as a
+   * "What you'll see when you arrive" snapshot between the editor's take
+   * and the module flow.
+   */
+  screenshotSrc?: string;
+  /** Caption shown under the screenshot (date + IP context) */
+  screenshotCaption?: string;
+
   /* CTA */
   ctaLabel?: string;
   ctaHref?: string;

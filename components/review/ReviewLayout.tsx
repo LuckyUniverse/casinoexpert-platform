@@ -16,6 +16,7 @@ import { BrandHistory } from "./modules/BrandHistory";
 import { FeaturedGame } from "./modules/FeaturedGame";
 import { SisterComparison } from "./modules/SisterComparison";
 import { ExpertVerdict } from "./modules/ExpertVerdict";
+import { SiteSnapshot } from "./SiteSnapshot";
 
 const MODULE_REGISTRY: Record<
   ReviewModuleKey,
@@ -119,6 +120,13 @@ export function ReviewLayout({ brand }: { brand: BrandReviewData }) {
           <p style={{ margin: 0, fontSize: "1.05rem", lineHeight: 1.6 }}>{brand.editorsTake}</p>
         </div>
       </section>
+
+      {/* Site snapshot — visual evidence sits between editor's take and the modules */}
+      {brand.screenshotSrc && (
+        <section className="lu-container" style={{ marginTop: "2.5rem" }}>
+          <SiteSnapshot brand={brand} />
+        </section>
+      )}
 
       {/* Modules — order and set vary per brand */}
       <div

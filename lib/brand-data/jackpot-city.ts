@@ -83,6 +83,11 @@ export const JACKPOT_CITY: BrandReviewData = {
   reputationParagraph:
     "Jackpot City has run since 1998 and, in the rest-of-Canada market, operates under Baytree Interactive Ltd on a Kahnawake Gaming Commission licence (number 00892), with the eCOGRA \"Safe & Fair\" seal displayed on the live Canadian site and Gambling Therapy named as the responsible-gambling partner in the footer. Casino.Guru rates it a High 8.0 Safety Index, crediting its scale (revenue over C$1 billion), a low complaint-to-player ratio, and a clean blacklist record. Trustpilot sits at 4.0/5 across roughly 8,020 reviews, where the consistent theme from players is that first withdrawals sit a couple of days while verification clears — repeat Interac payouts typically arrive same-day — alongside praise for game range and the longevity of the brand. AskGamblers shows 5/10, but worth knowing: AskGamblers' complaint resolution rate is calculated only for operators that opt into their dispute process. AskGamblers has refused to register as a formally recognised Alternative Dispute Resolution body — unlike eCOGRA — so most regulated operators (Super Partners brands included) route disputes through eCOGRA or MGA-recognised bodies instead. A low AskGamblers CRM doesn't mean unresolved complaints; it reflects which ADR the operator engages with.",
 
+  /* Site snapshot — captured by Dice from a Vancouver VPN, 2026-06-08 */
+  screenshotSrc: "/images/brand-screenshots/jackpot-city.png",
+  screenshotCaption:
+    "Jackpot City homepage as it appeared on 2026-06-08, captured from a Vancouver, BC IP via ExpressVPN.",
+
   /* Signed expert verdict from Andre Weston */
   expertVerdict:
     "Jackpot City is one of the few brands in Canada with the operational maturity to back up the marketing. Twenty-eight years on the same Microgaming-now-Games-Global platform means the cashier, KYC, and bonus mechanics have been hardened against the kinds of failure modes that plague newer entrants. The C$1,600 welcome is the largest of the Bayton stable and the daily Free Shots draw is a genuine value-add rather than a bonus-trap. My real reason for placing it at the top of this comparison, though, is the eCOGRA certification — when something goes sideways, you have a regulated ADR you can actually escalate to, which is not something every operator in this space can say.",

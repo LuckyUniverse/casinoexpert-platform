@@ -31,3 +31,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Large source PDFs — extracted content lives in public/images/brand-screenshots
+docs/casinoexpert-casino-screenshots.pdf
+docs/_pdf-text.txt

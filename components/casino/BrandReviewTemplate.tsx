@@ -94,26 +94,6 @@ export function BrandReviewTemplate({ config }: BrandReviewTemplateProps) {
               )}
             </div>
           </div>
-          {hasBrandLogo(config.slug) && (
-            <div
-              className={`mb-6 inline-flex items-center justify-center rounded-xl w-24 h-24 sm:w-28 sm:h-28 overflow-hidden ${
-                DARK_TILE_BRANDS.has(config.slug)
-                  ? "bg-slate-800"
-                  : "bg-white border border-gray-200"
-              }`}
-            >
-              <Image
-                src={brandLogoSrc(config.slug)}
-                alt={`${config.name} Canadian online casino logo${
-                  config.operator ? ` (operated by ${config.operator})` : ""
-                }`}
-                width={224}
-                height={224}
-                priority
-                className="w-full h-full object-contain p-2"
-              />
-            </div>
-          )}
           <h1 className="text-5xl font-bold text-gray-900 mb-6">{config.name} (2026)</h1>
           <p className="text-xl text-gray-600 leading-relaxed max-w-3xl">{config.introduction}</p>
         </header>

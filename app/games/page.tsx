@@ -127,9 +127,9 @@ export default function GamesPage() {
 
         {/* Cross-link */}
         <section className="bg-blue-50 border border-blue-200 rounded-xl p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
             Picking a brand based on what you like to play?
-          </h3>
+          </h2>
           <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
             Compare any two or three of the thirteen brands we cover side-by-side, including
             software providers and game-category emphasis.

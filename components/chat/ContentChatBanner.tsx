@@ -59,12 +59,9 @@ export function ContentChatBanner() {
                   Canadian Online Casinos
                 </span>
               </div>
-              <p
-                className="text-4xl md:text-6xl font-bold mb-4 leading-tight"
-                role="presentation"
-              >
+              <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
                 Ask CasinoExpert
-              </p>
+              </h1>
               <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
                 Your Canadian online casino expert.
               </p>

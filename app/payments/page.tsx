@@ -174,9 +174,9 @@ export default function PaymentsPage() {
 
         {/* Cross-link */}
         <section className="bg-white border border-gray-200 rounded-xl p-6 text-center">
-          <h3 className="text-xl font-bold text-gray-900 mb-2">
+          <h2 className="text-xl font-bold text-gray-900 mb-2">
             Comparing brands by banking?
-          </h3>
+          </h2>
           <p className="text-gray-600 mb-4">
             Side-by-side compare any two or three of the brands we cover, including
             withdrawal speed and accepted methods.

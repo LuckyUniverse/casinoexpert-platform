@@ -86,9 +86,9 @@ export default function Home() {
         </section>
 
         <section className="bg-blue-50 border-2 border-blue-200 rounded-xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">
             Reviewed by an industry expert
-          </h3>
+          </h2>
           <p className="text-base text-gray-700 mb-4 max-w-2xl mx-auto">
             Every review on casinoexpert.ai is signed by{" "}
             <Link

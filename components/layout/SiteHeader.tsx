@@ -6,8 +6,11 @@ import { Logo } from "@/components/Logo";
 
 const NAV_ITEMS: Array<{ label: string; href: string }> = [
   { label: "Online Casinos", href: "/" },
-  { label: "Methodology", href: "/methodology" },
-  { label: "About", href: "/about" },
+  { label: "Compare", href: "/compare" },
+  { label: "Games", href: "/games" },
+  { label: "Jackpots", href: "/jackpots" },
+  { label: "Payments", href: "/payments" },
+  { label: "Responsible Gambling", href: "/responsible-gambling" },
 ];
 
 export function SiteHeader() {

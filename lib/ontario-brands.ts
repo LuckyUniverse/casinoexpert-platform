@@ -42,7 +42,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 1998,
     software: "Games Global (Microgaming)",
     logoSlug: "jackpot-city",
-    affiliateUrl: "https://jackpotcity.ca/?s=bfp19644&a=spadid226018",
+    affiliateUrl: "https://jackpotcity.ca/?s=bfp19644&a=spadid228857",
     blurb: "Long-established Ontario operator with a Microgaming-powered library and Evolution live tables.",
   },
   {
@@ -64,7 +64,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2000,
     software: "Games Global + Evolution Live",
     logoSlug: "royal-vegas",
-    affiliateUrl: "https://royalvegas.ca/?s=bfp19644&a=spadid226018",
+    affiliateUrl: "https://royalvegas.ca/?s=bfp19644&a=spadid228857",
     blurb: "Table-game-led brand with an Evolution-powered live-dealer floor and a deep Microgaming slot catalogue.",
   },
   {
@@ -75,7 +75,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2003,
     software: "Games Global (Microgaming)",
     logoSlug: "ruby-fortune",
-    affiliateUrl: "https://rubyfortune.ca/?s=bfp19644&a=spadid226018",
+    affiliateUrl: "https://rubyfortune.ca/?s=bfp19644&a=spadid228857",
     blurb: "Curated Microgaming library focused on progressive jackpot titles, on the Bayton-family platform.",
   },
   {
@@ -97,7 +97,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2006,
     software: "Multi-provider: Games Global, Evolution, NetEnt, Pragmatic, Play'n GO",
     logoSlug: "betway-casino",
-    affiliateUrl: "https://www.betway.com/?s=bfp19644&a=spadid226018",
+    affiliateUrl: "https://www.betway.com/?s=bfp19644&a=spadid228857",
     blurb: "NYSE-listed Super Group operator running both casino and sports products on a single account.",
   },
   {
@@ -152,7 +152,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2001,
     software: "Games Global (Microgaming)",
     logoSlug: "spin-casino",
-    affiliateUrl: "https://spincasino.ca/?s=bfp19644&a=spadid226018",
+    affiliateUrl: "https://spincasino.ca/?s=bfp19644&a=spadid228857",
     blurb: "Bayton-family brand with a featured Loyalty Club running across all four sister sites.",
   },
   {

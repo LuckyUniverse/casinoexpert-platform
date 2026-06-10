@@ -12,7 +12,7 @@ export const BETWAY_CASINO: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://betway.com/bwp/welcome-casino-ca-1000-50/en-ca/",
+ affiliateUrl: "https://betway.com/bwp/welcome-casino-ca-1000-50/en-ca/?s=bfp19644&a=spadid228856",
  dealLive: true,
  isActive: true,
  themeColor: "green",

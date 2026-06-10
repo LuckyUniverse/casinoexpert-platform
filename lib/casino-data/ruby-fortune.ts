@@ -13,7 +13,7 @@ export const RUBY_FORTUNE: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://www.rubyfortune.com/ca/",
+ affiliateUrl: "https://www.rubyfortune.com/ca/?s=bfp19644&a=spadid228856",
  dealLive: true,
  isActive: true,
  themeColor: "red",

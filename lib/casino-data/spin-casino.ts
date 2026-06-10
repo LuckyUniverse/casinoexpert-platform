@@ -13,7 +13,7 @@ export const SPIN_CASINO: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://www.spincasino.com/ca/",
+ affiliateUrl: "https://www.spincasino.com/ca/?s=bfp19644&a=spadid228856",
  dealLive: true,
  isActive: true,
  themeColor: "red",

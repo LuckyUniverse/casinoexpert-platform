@@ -15,7 +15,7 @@ export const JACKPOT_CITY: CasinoConfig = {
  languages: ["English", "French"],
  minAge: 19,
 
- affiliateUrl: "https://www.jackpotcitycasino.com/canada/",
+ affiliateUrl: "https://www.jackpotcitycasino.com/canada/?s=bfp19644&a=spadid228856",
  dealLive: true,
  isActive: true,
  themeColor: "purple",

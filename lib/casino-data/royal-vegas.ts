@@ -13,7 +13,7 @@ export const ROYAL_VEGAS: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://www.royalvegascasino.com/canada/",
+ affiliateUrl: "https://www.royalvegascasino.com/canada/?s=bfp19644&a=spadid228856",
  dealLive: true,
  isActive: true,
  themeColor: "blue",

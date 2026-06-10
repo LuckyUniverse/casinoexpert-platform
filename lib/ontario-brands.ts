@@ -4,11 +4,11 @@
  * 12 brands we have iGaming Ontario / AGCO deals on, in the same
  * commercial-priority order used on casinogpt's Ontario dashboard.
  * Affiliate URLs are pulled from casinogpt's Supabase (the same tracked
- * links used on casinogpt.ai, Andrew's call).
+ * links used on casinogpt.ai - Andrew's call).
  *
  * IMPORTANT: This file backs /casinos/ontario, which is the ONLY page on
  * casinoexpert.ai that talks about Ontario. AGCO Standard 2.05 binds the
- * copy on that page, no welcome-offer / bonus / free-spin / jackpot-$ /
+ * copy on that page - no welcome-offer / bonus / free-spin / jackpot-$ /
  * loyalty-program language. Keep brand descriptions factual + neutral.
  */
 

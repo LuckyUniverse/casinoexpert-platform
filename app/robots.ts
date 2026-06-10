@@ -8,7 +8,7 @@ import type { MetadataRoute } from "next";
  * the per-page meta is the dominant signal. When the auth wall comes down,
  * remove this `disallow: /` and switch to `allow: /` to open crawl.
  *
- * For now we ship a permissive robots.txt that DOES allow crawl, but
+ * For now we ship a permissive robots.txt that DOES allow crawl - but
  * crawlers will hit 401 from the middleware before they read any page,
  * which is the actual wall. The intent is for /sitemap.xml and /robots.txt
  * to "just work" the moment the auth wall is lifted.

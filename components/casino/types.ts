@@ -1,5 +1,5 @@
 /**
- * CasinoConfig, data shape for a brand review page on casinoexpert.ai.
+ * CasinoConfig - data shape for a brand review page on casinoexpert.ai.
  * Mirrors casinogpt's CasinoConfig but trimmed for ROC scope (no iGO, no
  * Ontario cities, no AGCO-specific fields).
  */

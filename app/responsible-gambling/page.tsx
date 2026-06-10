@@ -16,7 +16,7 @@ const TOOLS: Array<{ title: string; description: string }> = [
   {
     title: "Loss limits",
     description:
-      "Cap how much you can lose in a given period, a useful guardrail when chasing makes you forget what you've spent.",
+      "Cap how much you can lose in a given period - a useful guardrail when chasing makes you forget what you've spent.",
   },
   {
     title: "Session-time limits",
@@ -31,12 +31,12 @@ const TOOLS: Array<{ title: string; description: string }> = [
   {
     title: "Cooling-off period",
     description:
-      "Temporarily lock yourself out, 24 hours, 7 days, 30 days. Account auto-reopens at the end.",
+      "Temporarily lock yourself out - 24 hours, 7 days, 30 days. Account auto-reopens at the end.",
   },
   {
     title: "Self-exclusion",
     description:
-      "Indefinite or longer-term block, typically 6 months minimum, often a year or more. Reinstatement usually requires a written request after the period ends.",
+      "Indefinite or longer-term block - typically 6 months minimum, often a year or more. Reinstatement usually requires a written request after the period ends.",
   },
 ];
 
@@ -99,7 +99,7 @@ export default function ResponsibleGamblingPage() {
             If gambling is affecting your life, help is available
           </h1>
           <p className="text-lg md:text-xl text-gray-700 leading-relaxed">
-            Free, confidential support exists at every level, in-account self-help tools at
+            Free, confidential support exists at every level - in-account self-help tools at
             each operator, dedicated charities reachable any time of day, and peer-led
             meetings in person and online. You don&apos;t need to wait until things are
             bad.
@@ -141,7 +141,7 @@ export default function ResponsibleGamblingPage() {
           </h2>
           <p className="text-gray-700 leading-relaxed mb-6">
             All thirteen brands we cover offer the same core set of self-help tools.
-            They&apos;re in your account settings once you&apos;re logged in, you don&apos;t
+            They&apos;re in your account settings once you&apos;re logged in - you don&apos;t
             need to ask support to enable them.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -160,7 +160,7 @@ export default function ResponsibleGamblingPage() {
         {/* External resources */}
         <section className="mb-12">
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
-            External support, free and confidential
+            External support - free and confidential
           </h2>
           <div className="space-y-4">
             {HELPLINES.map((h) => (
@@ -194,7 +194,7 @@ export default function ResponsibleGamblingPage() {
             Signs gambling might be becoming a problem
           </h2>
           <p className="text-gray-700 leading-relaxed mb-6">
-            If you recognise yourself, or someone close to you, in more than a couple of
+            If you recognise yourself - or someone close to you - in more than a couple of
             these, that&apos;s a reason to reach out to one of the resources above. You
             don&apos;t need to wait for a crisis.
           </p>
@@ -220,7 +220,7 @@ export default function ResponsibleGamblingPage() {
           </h3>
           <p className="text-sm text-gray-700 leading-relaxed">
             Asking for help isn&apos;t admitting defeat. The earlier you start a
-            conversation, with a partner, a helpline, a support group, the easier the
+            conversation - with a partner, a helpline, a support group - the easier the
             path back. Every resource on this page is free, judgement-free, and used
             routinely by people who later wonder why they waited.
           </p>

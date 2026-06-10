@@ -1,7 +1,7 @@
 /**
  * Brand logo helpers for the round-1 thirteen.
  * Sources are square PNGs under /public/logos/ matching our slug convention
- * (no "-casino" / "-square" suffixes, see scripts/extract-brand-assets.js
+ * (no "-casino" / "-square" suffixes - see scripts/extract-brand-assets.js
  * for the rename mapping from the casinogpt source set).
  *
  * To add a brand: drop {slug}.png into public/logos/ and register it below.

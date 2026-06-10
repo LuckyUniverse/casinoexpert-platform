@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Payment Methods at Canadian Online Casinos",
   description:
-    "Deposit and withdrawal methods at Canadian online casinos, Interac, Visa, Mastercard, iDebit, Instadebit, e-wallets, crypto. Timing, limits, and which of the 13 brands we cover accept what.",
+    "Deposit and withdrawal methods at Canadian online casinos - Interac, Visa, Mastercard, iDebit, Instadebit, e-wallets, crypto. Timing, limits, and which of the 13 brands we cover accept what.",
   alternates: { canonical: "/payments" },
 };
 
@@ -19,7 +19,7 @@ const METHODS: Array<{
   {
     name: "Interac e-Transfer",
     blurb:
-      "The most-used Canadian payment method at online casinos, bank-to-bank transfer, no card required, supported at every brand we cover.",
+      "The most-used Canadian payment method at online casinos - bank-to-bank transfer, no card required, supported at every brand we cover.",
     deposit: "Instant once authorised by your bank",
     withdrawal: "Same-day to 3 business days after KYC clears",
     whoAccepts: "All 13 brands",
@@ -36,7 +36,7 @@ const METHODS: Array<{
   {
     name: "Mastercard",
     blurb:
-      "Same characteristics as Visa, credit cards may be blocked at the bank level for gambling; debit usually works.",
+      "Same characteristics as Visa - credit cards may be blocked at the bank level for gambling; debit usually works.",
     deposit: "Instant",
     withdrawal: "3–8 business days",
     whoAccepts: "All 13 brands",
@@ -44,7 +44,7 @@ const METHODS: Array<{
   {
     name: "iDebit",
     blurb:
-      "Online voucher service, links to your bank account, processes payments without sharing card details with the operator.",
+      "Online voucher service - links to your bank account, processes payments without sharing card details with the operator.",
     deposit: "Instant",
     withdrawal: "Within 24 hours typically",
     whoAccepts: "Most brands we cover (Casino Rewards group + Betway)",
@@ -52,7 +52,7 @@ const METHODS: Array<{
   {
     name: "Instadebit",
     blurb:
-      "Similar to iDebit, direct bank-account linked service for Canadian players, popular at Casino Rewards brands.",
+      "Similar to iDebit - direct bank-account linked service for Canadian players, popular at Casino Rewards brands.",
     deposit: "Instant",
     withdrawal: "Within 24 hours typically",
     whoAccepts: "Most brands we cover",
@@ -60,7 +60,7 @@ const METHODS: Array<{
   {
     name: "MuchBetter / ecoPayz / Skrill / Neteller",
     blurb:
-      "E-wallets, fund a balance once, then deposit at any casino accepting that wallet without re-sharing bank details.",
+      "E-wallets - fund a balance once, then deposit at any casino accepting that wallet without re-sharing bank details.",
     deposit: "Instant",
     withdrawal: "Same day (usually within hours)",
     whoAccepts: "Betway in particular; Bayton brands more selectively",
@@ -69,7 +69,7 @@ const METHODS: Array<{
   {
     name: "Apple Pay",
     blurb:
-      "iOS-native payment method, face/touch ID auth, no card-detail entry. Limited operator support in Canada.",
+      "iOS-native payment method - face/touch ID auth, no card-detail entry. Limited operator support in Canada.",
     deposit: "Instant",
     withdrawal: "Withdrawals typically route to the source bank, not back to Apple Pay",
     whoAccepts: "Betway Sports (notable in our 13)",
@@ -98,7 +98,7 @@ export default function PaymentsPage() {
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl leading-relaxed">
             A practical walkthrough of how Canadian players deposit and withdraw at the
-            thirteen operators we cover, what each method does, typical timing, and which
+            thirteen operators we cover - what each method does, typical timing, and which
             brands accept what.
           </p>
         </header>
@@ -110,7 +110,7 @@ export default function PaymentsPage() {
           </h2>
           <ul className="list-disc pl-5 space-y-1.5 text-gray-700 leading-relaxed">
             <li>
-              <strong>Interac e-Transfer</strong> is the default, every brand we cover
+              <strong>Interac e-Transfer</strong> is the default - every brand we cover
               supports it, deposits are instant, withdrawals run same-day to a few business
               days once KYC clears.
             </li>
@@ -120,7 +120,7 @@ export default function PaymentsPage() {
               run faster.
             </li>
             <li>
-              <strong>Card deposits may be blocked at the bank</strong>, some Canadian
+              <strong>Card deposits may be blocked at the bank</strong> - some Canadian
               issuers refuse gambling transactions on credit cards. Debit usually works;
               Interac always works.
             </li>

@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Andre Weston, iGaming Industry Expert | casinoexpert.ai",
+  title: "Andre Weston - iGaming Industry Expert | casinoexpert.ai",
   description:
     "Andre Weston is an iGaming industry expert with 20+ years of operator-side experience across casino operations, payments, player protection, VIP management and platform integrity. He reviews and signs every brand review on casinoexpert.ai.",
   alternates: { canonical: "/authors/andre-weston" },
@@ -56,7 +56,7 @@ export default function AndreWestonPage() {
               <div className="w-40 h-40 rounded-full overflow-hidden border-4 border-blue-600 shadow-xl bg-white">
                 <Image
                   src="/images/andre-weston.jpg"
-                  alt="Andre Weston, iGaming Industry Expert"
+                  alt="Andre Weston - iGaming Industry Expert"
                   width={160}
                   height={160}
                   className="object-cover"
@@ -113,7 +113,7 @@ export default function AndreWestonPage() {
             </p>
             <p>
               Having worked across multiple disciplines inside casino operations, Andre has
-              practical knowledge of how the systems function behind the scenes, including
+              practical knowledge of how the systems function behind the scenes - including
               withdrawals, payment processing, account restrictions, bonus mechanics,
               compliance frameworks, and risk-management protocols. That dual perspective of
               operator-side and player-side experience is what lets him write reviews that
@@ -132,26 +132,26 @@ export default function AndreWestonPage() {
             <p>
               Andre signs the expert review on every brand page published on casinoexpert.ai.
               Each review is written from his operator-side knowledge of how a given casino
-              actually behaves, cashier reliability, KYC process, bonus mechanics, support
-              quality, not from the marketing copy on the operator's site.
+              actually behaves - cashier reliability, KYC process, bonus mechanics, support
+              quality - not from the marketing copy on the operator's site.
             </p>
             <p>His specific contributions include:</p>
             <ul>
               <li>
-                <strong>Expert verdicts</strong>, Personal assessments of each brand based
+                <strong>Expert verdicts</strong> - Personal assessments of each brand based
                 on operational quality, payment reliability, and player experience
               </li>
               <li>
-                <strong>Accuracy verification</strong>, Cross-checking casino data
+                <strong>Accuracy verification</strong> - Cross-checking casino data
                 (withdrawal speeds, deposit limits, game counts) against current operator
                 offerings
               </li>
               <li>
-                <strong>Regulatory review</strong>, Ensuring licence claims, ADR
+                <strong>Regulatory review</strong> - Ensuring licence claims, ADR
                 relationships and certification badges line up against the public registers
               </li>
               <li>
-                <strong>Responsible gambling oversight</strong>, Verifying that all content
+                <strong>Responsible gambling oversight</strong> - Verifying that all content
                 includes appropriate responsible-gambling resources and warnings
               </li>
             </ul>

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
   const casino = getCasino(slug);
   if (!casino) return { title: "Not found" };
 
-  const title = `${casino.name} review (2026), Canada`;
+  const title = `${casino.name} review (2026) - Canada`;
   const description = casino.answerCapsule
     ? casino.answerCapsule.slice(0, 158)
     : casino.introduction.slice(0, 158);

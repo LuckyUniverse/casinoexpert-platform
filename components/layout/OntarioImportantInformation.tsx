@@ -1,5 +1,5 @@
 /**
- * Ontario-flavoured "Important Information" block, shown above the
+ * Ontario-flavoured "Important Information" block - shown above the
  * OntarioComplianceFooter on /casinos/ontario only. AGCO Standard 2.05
  * binds the copy here.
  */

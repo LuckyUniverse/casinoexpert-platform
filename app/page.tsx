@@ -5,7 +5,7 @@ import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
 
 /**
  * Homepage. The Ask CasinoExpert hero is rendered above by ContentChatBanner
- * in the root layout. This page renders the scope note, brand grid, how-we-review
+ * in the root layout - this page just renders the brand grid and the
  * methodology block, and the Andre Weston author callout.
  */
 export default function Home() {

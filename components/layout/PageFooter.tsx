@@ -7,7 +7,7 @@ import { ComplianceFooter } from "../casino/ComplianceFooter";
 import { OntarioComplianceFooter } from "../casino/OntarioComplianceFooter";
 
 /**
- * Page footer, picks the Ontario-flavoured pair (19+, ConnexOntario,
+ * Page footer - picks the Ontario-flavoured pair (19+, ConnexOntario,
  * Gamblers Anonymous) on /casinos/ontario, default pair elsewhere
  * (19+, GamCare, Gamblers Anonymous).
  */

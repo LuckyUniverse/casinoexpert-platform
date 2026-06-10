@@ -1,5 +1,5 @@
 /**
- * casinoexpert.ai wordmark, live text rendering, no raster crop.
+ * casinoexpert.ai wordmark - live text rendering, no raster crop.
  * Tri-coloured to mirror casinogpt's logo treatment (subtle accent colour
  * on the brand-distinctive part of the name).
  */

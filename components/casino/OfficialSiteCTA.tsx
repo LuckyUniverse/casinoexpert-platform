@@ -1,5 +1,5 @@
 /**
- * Official Site CTA, affiliate link card.
+ * Official Site CTA - affiliate link card.
  * ROC-flavoured (no Ontario / iGO badges).
  */
 
@@ -66,8 +66,8 @@ export function OfficialSiteCTA({
     >
       <h3 className="text-2xl font-bold text-gray-900 mb-3">
         {hasAffiliateLink
-          ? `Visit the Official Site, ${casinoName}`
-          : `${casinoName}, Official Information`}
+          ? `Visit the Official Site - ${casinoName}`
+          : `${casinoName} - Official Information`}
       </h3>
       <p className="text-base text-gray-700 mb-6">
         {blurb ?? "Players must be 19+. Verify the offer at the cashier before depositing. Play responsibly."}

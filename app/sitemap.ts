@@ -10,14 +10,14 @@ import { allCasinosInOrder } from "@/lib/casino-data";
  * find them.
  *
  * Note: while the basic-auth wall is up, search engines won't actually
- * be able to fetch this, every request returns 401. The sitemap is
+ * be able to fetch this - every request returns 401. The sitemap is
  * ready to be useful the moment we remove the SITE_USER/SITE_PASS env
  * vars on Vercel.
  */
 const BASE = "https://casinoexpert.ai";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // ISO date stamp anchored to last editorial pass, refresh when content
+  // ISO date stamp anchored to last editorial pass - refresh when content
   // ships a real update. (Date.now() can drift during build prerender, so
   // we keep this static.)
   const lastModified = "2026-06-09";

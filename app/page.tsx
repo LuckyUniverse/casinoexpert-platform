@@ -3,42 +3,25 @@ import Image from "next/image";
 import { allCasinosInOrder } from "@/lib/casino-data";
 import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
 
+/**
+ * Homepage. The Ask CasinoExpert hero is rendered above by ContentChatBanner
+ * in the root layout — this page just renders the brand grid and the
+ * Andre Weston methodology nudge below.
+ */
 export default function Home() {
   const brands = allCasinosInOrder();
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Hero */}
-        <section className="mb-12">
-          <p className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-3">
-            Canada · Outside Ontario
-          </p>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            casinoexpert<span className="text-blue-600">.ai</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 max-w-3xl leading-relaxed">
-            Objective reviews of the online casinos Canadians actually play at — licensing,
-            banking, games, and trust signals laid out plainly. Reviewed by{" "}
-            <Link
-              href="/authors/andre-weston"
-              className="text-blue-600 hover:text-blue-700 hover:underline font-medium"
-            >
-              Andre Weston
-            </Link>{" "}
-            — twenty years inside the industry.
-          </p>
-        </section>
-
-        {/* Featured Casinos grid */}
         <section id="casinos" className="mb-16">
           <h2 className="text-3xl font-bold text-gray-900 mb-2">
             Featured Canadian online casinos
           </h2>
           <p className="text-base text-gray-600 mb-8">
-            Thirteen brands fully reviewed for the rest-of-Canada market. Brands ordered by
-            our internal commercial priority. Verify each offer at the cashier before
-            depositing.
+            Thirteen brands fully reviewed for the rest-of-Canada market. Brands
+            ordered by our internal commercial priority. Verify each offer at the
+            cashier before depositing.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -68,7 +51,9 @@ export default function Home() {
                     <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition truncate">
                       {brand.name}
                     </h3>
-                    <p className="text-xs text-gray-500 truncate">{brand.operator}</p>
+                    <p className="text-xs text-gray-500 truncate">
+                      {brand.operator}
+                    </p>
                   </div>
                 </div>
 
@@ -83,7 +68,6 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* Quick takeaway from intro */}
                 <p className="text-sm text-gray-600 leading-relaxed mb-4 line-clamp-3">
                   {brand.introduction}
                 </p>
@@ -92,16 +76,19 @@ export default function Home() {
                   <span className="text-sm font-semibold text-blue-600 group-hover:text-blue-700">
                     Read review →
                   </span>
-                  <span className="text-xs text-gray-400">Since {brand.founded}</span>
+                  <span className="text-xs text-gray-400">
+                    Since {brand.founded}
+                  </span>
                 </div>
               </Link>
             ))}
           </div>
         </section>
 
-        {/* Methodology nudge */}
         <section className="bg-blue-50 border-2 border-blue-200 rounded-xl p-8 text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-3">Reviewed by an industry expert</h3>
+          <h3 className="text-2xl font-bold text-gray-900 mb-3">
+            Reviewed by an industry expert
+          </h3>
           <p className="text-base text-gray-700 mb-4 max-w-2xl mx-auto">
             Every review on casinoexpert.ai is signed by{" "}
             <Link
@@ -110,9 +97,10 @@ export default function Home() {
             >
               Andre Weston
             </Link>
-            , an iGaming industry consultant with twenty years of operator-side experience.
-            Reviews are written from operational knowledge of how brands actually behave at
-            the cashier, KYC desk and bonus system — not from operator marketing copy.
+            , an iGaming industry consultant with twenty years of operator-side
+            experience. Reviews are written from operational knowledge of how
+            brands actually behave at the cashier, KYC desk and bonus system —
+            not from operator marketing copy.
           </p>
           <Link
             href="/authors/andre-weston"

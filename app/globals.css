@@ -24,3 +24,26 @@ body {
 .overflow-x-auto table {
   min-width: 500px;
 }
+
+/* Chat widget prose styles */
+.chat-prose p {
+  margin: 0.25rem 0;
+}
+.chat-prose ul {
+  margin: 0.25rem 0;
+  padding-left: 1.25rem;
+  list-style-type: disc;
+}
+.chat-prose li {
+  margin: 0.125rem 0;
+}
+.chat-prose strong {
+  font-weight: 600;
+}
+.chat-prose a {
+  color: #2563eb;
+  text-decoration: underline;
+}
+.chat-prose a:hover {
+  color: #1d4ed8;
+}

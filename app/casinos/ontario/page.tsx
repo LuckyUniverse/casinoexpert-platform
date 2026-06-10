@@ -59,9 +59,9 @@ export default function OntarioPage() {
             Online Casinos in Ontario
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl leading-relaxed">
-            Twelve operators registered with iGaming Ontario and regulated by the
-            AGCO. Each brand below holds an active iGO operator agreement; click
-            through to the operator&apos;s official Ontario site to learn more.
+            Twelve casinos registered with iGaming Ontario and regulated by the AGCO.
+            Each brand below holds an active iGO operator agreement; click through to
+            the operator&apos;s official Ontario site to learn more.
           </p>
         </header>
 

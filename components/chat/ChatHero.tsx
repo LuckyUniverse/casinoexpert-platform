@@ -2,15 +2,23 @@
 
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { usePathname } from "next/navigation";
 import { getSuggestedQuestions } from "@/lib/chat/suggested-questions";
 
-const transport = new DefaultChatTransport({ api: "/api/chat" });
-
-export function ChatHero() {
+/**
+ * The Ontario page uses a separate AGCO-compliant system prompt server-side.
+ * We pass `mode: "ontario"` in the request body so the API picks the strict
+ * prompt; every other surface uses the default.
+ */
+export function ChatHero({ mode = "default" }: { mode?: "default" | "ontario" }) {
   const pathname = usePathname();
   const suggestedQuestions = getSuggestedQuestions(pathname);
+
+  const transport = useMemo(
+    () => new DefaultChatTransport({ api: "/api/chat", body: { mode } }),
+    [mode]
+  );
   const [input, setInput] = useState("");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);

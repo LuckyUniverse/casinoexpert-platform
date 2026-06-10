@@ -13,15 +13,13 @@ const EXCLUDED_PATHS = new Set<string>([
   "/privacy",
   "/terms",
   "/methodology",
-  // Ontario landing page is AGCO-bound; the global chat is not AGCO-safe,
-  // so it's intentionally hidden on this route. Build an AGCO-strict
-  // chat variant if/when we want chat there.
-  "/casinos/ontario",
 ]);
 
 export function ContentChatBanner() {
   const pathname = usePathname();
   const isHomepage = pathname === "/" || pathname.startsWith("/#");
+  const isOntario = pathname === "/casinos/ontario";
+  const chatMode: "default" | "ontario" = isOntario ? "ontario" : "default";
   const prevPathRef = useRef(pathname);
   const [chatOpen, setChatOpen] = useState(false);
 
@@ -71,7 +69,7 @@ export function ContentChatBanner() {
                 Your Canadian online casino expert.
               </p>
             </div>
-            <ChatHero />
+            <ChatHero mode={chatMode} />
           </div>
         </div>
         <div className="bg-gray-50 border-b border-gray-200 py-2">
@@ -109,8 +107,8 @@ export function ContentChatBanner() {
               </svg>
               <p className="text-sm text-blue-100">
                 Have a question?{" "}
-                <span className="font-semibold text-white">Ask CasinoExpert</span> — your
-                Canadian casino expert
+                <span className="font-semibold text-white">Ask CasinoExpert</span> —{" "}
+                {isOntario ? "your AGCO-regulated Ontario casino expert" : "your Canadian casino expert"}
               </p>
             </div>
             <span className="flex-shrink-0 bg-white/15 border border-white/20 text-white text-xs font-semibold px-4 py-1.5 rounded-full">
@@ -122,7 +120,7 @@ export function ContentChatBanner() {
         {chatOpen && (
           <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
             <div className="container mx-auto px-4 max-w-7xl py-6">
-              <ChatHero />
+              <ChatHero mode={chatMode} />
             </div>
           </div>
         )}

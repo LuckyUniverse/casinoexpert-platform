@@ -1,6 +1,7 @@
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText, convertToModelMessages } from "ai";
 import { SYSTEM_PROMPT } from "@/lib/chat/system-prompt";
+import { SYSTEM_PROMPT_ONTARIO } from "@/lib/chat/system-prompt-ontario";
 import { KNOWLEDGE_BASE } from "@/lib/chat/knowledge-base";
 
 export const maxDuration = 30;
@@ -56,7 +57,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { messages } = await req.json();
+  const { messages, mode } = await req.json();
 
   // Cap conversation length to control token costs.
   const recentMessages = messages.slice(-10);
@@ -67,9 +68,18 @@ export async function POST(req: Request) {
 
   const anthropic = createAnthropic({ apiKey });
 
+  // Switch system prompt based on the surface the chat is being asked from.
+  // The Ontario surface (/casinos/ontario) is AGCO-bound and uses a strict
+  // no-promotional-language prompt. Everything else uses the default prompt
+  // that's free to discuss welcome offers, wagering, loyalty etc.
+  const isOntario = mode === "ontario";
+  const system = isOntario
+    ? `${SYSTEM_PROMPT_ONTARIO}\n\n## Reference Data\n${KNOWLEDGE_BASE}`
+    : `${SYSTEM_PROMPT}\n\n## Reference Data\n${KNOWLEDGE_BASE}`;
+
   const result = streamText({
     model: anthropic("claude-haiku-4-5-20251001"),
-    system: `${SYSTEM_PROMPT}\n\n## Reference Data\n${KNOWLEDGE_BASE}`,
+    system,
     messages: modelMessages,
     maxOutputTokens: 350,
   });

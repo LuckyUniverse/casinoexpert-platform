@@ -26,6 +26,13 @@ const HOMEPAGE_QUESTIONS = [
   "Do I pay taxes on casino winnings in Canada?",
 ];
 
+const ONTARIO_QUESTIONS = [
+  "Which AGCO-regulated casinos accept Interac?",
+  "How long do withdrawals take in Ontario?",
+  "Is online gambling legal in Ontario?",
+  "What's the difference between AGCO and iGaming Ontario?",
+];
+
 const AUTHOR_QUESTIONS = [
   "Who is Andre Weston?",
   "How does casinoexpert.ai pick which casinos to review?",
@@ -47,6 +54,8 @@ function brandSpecificQuestions(name: string): string[] {
  */
 export function getSuggestedQuestions(pathname: string | null): string[] {
   if (!pathname || pathname === "/") return HOMEPAGE_QUESTIONS;
+
+  if (pathname === "/casinos/ontario") return ONTARIO_QUESTIONS;
 
   // /casinos/<slug>
   const casinoMatch = pathname.match(/^\/casinos\/([^/]+)/);

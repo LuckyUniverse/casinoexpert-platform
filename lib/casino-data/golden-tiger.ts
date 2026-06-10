@@ -12,7 +12,7 @@ export const GOLDEN_TIGER: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://goldentiger.casino/en/",
+ affiliateUrl: "https://iredirect.net/referral/?site=gt&lang=en&aff_id=aff117127",
  dealLive: true,
  isActive: true,
  themeColor: "yellow",

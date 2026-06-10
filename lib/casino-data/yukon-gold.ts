@@ -12,7 +12,7 @@ export const YUKON_GOLD: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://yukongold.casino/en/",
+ affiliateUrl: "https://iredirect.net/referral/?site=yg&lang=en&aff_id=aff117127",
  dealLive: true,
  isActive: true,
  themeColor: "yellow",

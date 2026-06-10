@@ -74,13 +74,6 @@ const HELPLINES: Array<{
     detail:
       "Canadian-based independent non-profit; resources, RG accreditation programmes (RG Check), and provincial campaign work.",
   },
-  {
-    name: "Provincial helplines",
-    url: "https://www.responsiblegambling.org/get-help/find-help-in-your-area/",
-    coverage: "Province-by-province",
-    detail:
-      "Each Canadian province operates its own gambling-help service through the relevant provincial gambling authority. The RGC's directory lists numbers and live-chat for each.",
-  },
 ];
 
 const WARNING_SIGNS = [

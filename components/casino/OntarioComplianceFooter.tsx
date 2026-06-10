@@ -52,9 +52,6 @@ export function OntarioComplianceFooter() {
         {/* Right — Links + domain */}
         <div className="text-center md:text-right space-y-1">
           <div className="flex items-center justify-center md:justify-end gap-3 text-xs">
-            <Link href="/methodology" className="text-gray-500 hover:text-blue-600 transition">
-              Methodology
-            </Link>
             <Link
               href="/authors/andre-weston"
               className="text-gray-500 hover:text-blue-600 transition"

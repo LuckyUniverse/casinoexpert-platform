@@ -1,6 +1,5 @@
 /**
- * Important Information — required disclaimers + freshness footer for ROC scope.
- * (Ontario-specific helpline content lives on the future Ontario page.)
+ * Important Information — required disclaimers + freshness footer.
  */
 export function ImportantInformation() {
   return (
@@ -14,9 +13,8 @@ export function ImportantInformation() {
         </p>
         <p>
           <strong>Informational resource:</strong> casinoexpert.ai is an editorial guide to
-          online casinos available to Canadian players outside of Ontario. Content is for
-          information and does not constitute gambling advice. All gambling involves financial
-          risk.
+          online casinos available to Canadian players. Content is for information and does
+          not constitute gambling advice. All gambling involves financial risk.
         </p>
         <p>
           <strong>Verify information:</strong> we maintain accuracy where we can, but

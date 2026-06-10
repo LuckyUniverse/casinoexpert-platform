@@ -13,6 +13,10 @@ const EXCLUDED_PATHS = new Set<string>([
   "/privacy",
   "/terms",
   "/methodology",
+  // Ontario landing page is AGCO-bound; the global chat is not AGCO-safe,
+  // so it's intentionally hidden on this route. Build an AGCO-strict
+  // chat variant if/when we want chat there.
+  "/casinos/ontario",
 ]);
 
 export function ContentChatBanner() {
@@ -54,7 +58,7 @@ export function ContentChatBanner() {
                   19+ Only
                 </span>
                 <span className="bg-green-500/20 backdrop-blur-sm border border-green-400/30 rounded-full px-4 py-1.5 text-sm font-semibold">
-                  Canada · Outside Ontario
+                  Canadian Online Casinos
                 </span>
               </div>
               <p

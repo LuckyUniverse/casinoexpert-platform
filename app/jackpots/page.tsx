@@ -150,7 +150,7 @@ export default function JackpotsPage() {
             Which brands lean hardest into progressives?
           </h2>
           <p className="text-gray-600 mb-4 max-w-2xl mx-auto">
-            Ruby Fortune is openly the most jackpot-forward of the Bayton family. The seven
+            Jackpot City is openly the most jackpot-forward of the Bayton family. The seven
             Casino Rewards brands all run the Mega Money Wheel hook into the same pool.
             Compare them side-by-side.
           </p>

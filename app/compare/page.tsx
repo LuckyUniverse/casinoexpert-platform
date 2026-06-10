@@ -174,13 +174,8 @@ export default function ComparePage() {
 
         {/* Footnote */}
         <p className="text-xs text-gray-500 mt-6 leading-relaxed max-w-3xl">
-          This compare tool covers the thirteen brands on casinoexpert.ai&apos;s Canadian
-          rollout. For Ontario-licensed sister versions of these brands (different
-          regulator, different terms), see our{" "}
-          <Link href="/casinos/ontario" className="text-blue-600 hover:underline">
-            Ontario online casinos directory
-          </Link>{" "}
-         , but the compare grid itself is Canada-only by design.
+          This compare tool covers the thirteen brands on casinoexpert.ai. Pick any
+          two or three above to see them side-by-side.
         </p>
       </div>
     </div>

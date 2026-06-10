@@ -1,6 +1,6 @@
 # casinoexpert-platform
 
-Sister site to [casinogpt.ai](https://casinogpt.ai). Holding page only — full
+Sister site to [casinogpt.ai](https://casinogpt.ai). Holding page only, full
 content and tech build to follow.
 
 ## Local dev

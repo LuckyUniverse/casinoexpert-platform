@@ -1,6 +1,6 @@
 /**
  * Section-header icons used across the brand review template.
- * Mirrored from casinogpt's visual language — consistent across the portfolio.
+ * Mirrored from casinogpt's visual language, consistent across the portfolio.
  */
 
 interface IconProps {

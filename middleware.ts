@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
  *
  * The site isn't ready for public eyes yet, so we gate everything behind a
  * browser-native username/password prompt. Credentials are read from env vars
- * (SITE_USER / SITE_PASS) configured in the Vercel dashboard — nothing
+ * (SITE_USER / SITE_PASS) configured in the Vercel dashboard, nothing
  * sensitive is committed to the (public) repo.
  *
  * If no creds are configured, the wall is OFF (so local dev "just works" and

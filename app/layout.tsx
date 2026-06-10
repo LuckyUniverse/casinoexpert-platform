@@ -18,11 +18,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://casinoexpert.ai"),
   title: {
-    default: "casinoexpert.ai — Your Ultimate, Factual, Objective Casino Guide for Canada",
+    default: "casinoexpert.ai, Your Ultimate, Factual, Objective Casino Guide for Canada",
     template: "%s | casinoexpert.ai",
   },
   description:
-    "Objective reviews of the online casinos Canadians actually play at — licensing, banking, games, and trust signals laid out plainly.",
+    "Objective reviews of the online casinos Canadians actually play at, licensing, banking, games, and trust signals laid out plainly.",
   // Stays noindex while the basic-auth wall is up; flip to true when launching.
   robots: { index: false, follow: false },
   openGraph: {

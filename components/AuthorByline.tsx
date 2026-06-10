@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 /**
- * Andre Weston author bio block — appears at the bottom of every brand review.
+ * Andre Weston author bio block, appears at the bottom of every brand review.
  * Mirrors casinogpt's AuthorBio component but tuned for casinoexpert.ai's
  * broader Canadian (non-Ontario) scope.
  */
@@ -24,7 +24,7 @@ export function AuthorBio({ className = "" }: { className?: string }) {
           <div className="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden border-4 border-blue-600 shadow-xl bg-white">
             <Image
               src="/images/andre-weston.jpg"
-              alt="Andre Weston — iGaming industry expert"
+              alt="Andre Weston, iGaming industry expert"
               width={128}
               height={128}
               className="object-cover"
@@ -51,7 +51,7 @@ export function AuthorBio({ className = "" }: { className?: string }) {
             <>
               <p className="text-sm md:text-base text-gray-700 leading-relaxed mb-4">
                 Having worked across multiple disciplines inside casino operations, Andre has
-                practical knowledge of how the systems function behind the scenes — including
+                practical knowledge of how the systems function behind the scenes, including
                 withdrawals, payment processing, account restrictions, bonus mechanics,
                 compliance frameworks, and risk-management protocols. That dual perspective of
                 operator-side and player-side experience is what lets him write reviews that

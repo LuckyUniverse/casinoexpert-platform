@@ -9,7 +9,7 @@ export const maxDuration = 30;
 /**
  * Simple per-IP rate limiting (in-memory; resets on deploy).
  * 20 messages per 1-hour window per IP. Good enough for a stateless chat
- * with no auth — we'll move to a durable store if abuse becomes a problem.
+ * with no auth, we'll move to a durable store if abuse becomes a problem.
  */
 const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
 const RATE_LIMIT = 20;

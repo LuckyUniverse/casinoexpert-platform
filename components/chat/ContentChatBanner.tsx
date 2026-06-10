@@ -39,7 +39,7 @@ export function ContentChatBanner() {
 
   if (EXCLUDED_PATHS.has(pathname)) return null;
 
-  // Homepage — full hero
+  // Homepage, full hero
   if (isHomepage) {
     return (
       <>
@@ -81,7 +81,7 @@ export function ContentChatBanner() {
     );
   }
 
-  // Subpages — compact expandable banner
+  // Subpages, compact expandable banner
   return (
     <>
       <div id="ask-casinoexpert">
@@ -104,7 +104,7 @@ export function ContentChatBanner() {
               </svg>
               <p className="text-sm text-blue-100">
                 Have a question?{" "}
-                <span className="font-semibold text-white">Ask CasinoExpert</span> —{" "}
+                <span className="font-semibold text-white">Ask CasinoExpert</span>,{" "}
                 {isOntario ? "your AGCO-regulated Ontario casino expert" : "your Canadian casino expert"}
               </p>
             </div>

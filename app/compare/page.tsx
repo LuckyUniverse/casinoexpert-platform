@@ -7,7 +7,7 @@ import { allCasinosInOrder } from "@/lib/casino-data";
 import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
 
 /**
- * /compare — interactive side-by-side comparison of up to 3 brands.
+ * /compare, interactive side-by-side comparison of up to 3 brands.
  * Scoped to the 13 brands in our Canada coverage (Ontario sister
  * versions intentionally excluded).
  */
@@ -30,11 +30,11 @@ const FIELDS: string[] = [
 ];
 
 function valueFor(brandSlug: string | null, fieldLabel: string): string {
-  if (!brandSlug) return "—";
+  if (!brandSlug) return ", ";
   const brand = allCasinosInOrder().find((b) => b.slug === brandSlug);
-  if (!brand) return "—";
+  if (!brand) return ", ";
   const fact = brand.quickFacts.find((f) => f.label === fieldLabel);
-  return fact?.value ?? "—";
+  return fact?.value ?? ", ";
 }
 
 export default function ComparePage() {
@@ -63,7 +63,7 @@ export default function ComparePage() {
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl leading-relaxed">
             Pick up to three of the thirteen brands we cover and compare them on operator,
-            licence, welcome offer, banking, support and trust signals — all in one view.
+            licence, welcome offer, banking, support and trust signals, all in one view.
           </p>
         </header>
 
@@ -80,7 +80,7 @@ export default function ComparePage() {
                 onChange={(e) => setter(e.target.value || null)}
                 className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">— pick a brand —</option>
+                <option value="">, pick a brand,</option>
                 {brands.map((b) => (
                   <option key={b.slug} value={b.slug}>
                     {b.name}
@@ -162,7 +162,7 @@ export default function ComparePage() {
                         key={idx}
                         className="px-5 py-3 text-gray-900 border-l border-gray-200 align-top"
                       >
-                        {slug ? valueFor(slug, field) : "—"}
+                        {slug ? valueFor(slug, field) : ", "}
                       </td>
                     ))}
                   </tr>
@@ -180,7 +180,7 @@ export default function ComparePage() {
           <Link href="/casinos/ontario" className="text-blue-600 hover:underline">
             Ontario online casinos directory
           </Link>{" "}
-          — but the compare grid itself is Canada-only by design.
+         , but the compare grid itself is Canada-only by design.
         </p>
       </div>
     </div>

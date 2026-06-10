@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Progressive Jackpot Casinos in Canada — WowPot, Mega Moolah & More",
+  title: "Progressive Jackpot Casinos in Canada, WowPot, Mega Moolah & More",
   description:
     "How progressive jackpots work, which networks pay out the biggest pools, and which Canadian-facing brands carry them. Featuring the Games Global WowPot family and the long-running Mega Moolah ladder.",
   alternates: { canonical: "/jackpots" },
@@ -19,28 +19,28 @@ const NETWORKS: Array<{
     name: "WowPot",
     tagline: "Games Global's flagship four-tier progressive network",
     body:
-      "WowPot is the multi-tier progressive jackpot network that runs across Games Global's modern slot catalogue. The network funds four jackpot tiers from every spin on a participating game — Mini, Minor, Major and the headline WowPot — meaning a single spin can trigger a payout at any tier, not just the top one. Pool sizes accumulate across the entire network of operators carrying participating titles, which is why the headline WowPot regularly clears C$1M before resetting. For a deeper dive into the network's mechanics and a live pool tracker, see the dedicated wowpot.org site.",
+      "WowPot is the multi-tier progressive jackpot network that runs across Games Global's modern slot catalogue. The network funds four jackpot tiers from every spin on a participating game, Mini, Minor, Major and the headline WowPot, meaning a single spin can trigger a payout at any tier, not just the top one. Pool sizes accumulate across the entire network of operators carrying participating titles, which is why the headline WowPot regularly clears C$1M before resetting. For a deeper dive into the network's mechanics and a live pool tracker, see the dedicated wowpot.org site.",
     tiers: ["Mini · seed C$10", "Minor · seed C$100", "Major · seed C$10k", "WowPot · seed C$2M typical"],
     availableAt:
       "Casino Rewards group (Yukon Gold, Zodiac, Captain Cooks, Grand Mondial, Casino Classic, Golden Tiger, Luxury), Bayton 4 (Jackpot City, Spin Casino, Royal Vegas, Ruby Fortune), and Betway",
   },
   {
     name: "Mega Moolah",
-    tagline: "The original Microgaming progressive — now under WowPot's umbrella",
+    tagline: "The original Microgaming progressive, now under WowPot's umbrella",
     body:
-      "Mega Moolah is the long-running Microgaming progressive jackpot ladder that produced some of the biggest online casino wins on record (multiple seven-figure CAD payouts annually since 2006). Following Microgaming's transition to Games Global, the Mega Moolah brand sits alongside WowPot as a parallel network — same operator stable, same pool-aggregation principle, different jackpot ceilings. The base Mega Moolah game itself remains in heavy rotation across the Bayton 4 and Casino Rewards 7 lobbies, with sister titles (Mega Moolah Atlantean Treasures, Mega Moolah Lucky Bachelorettes, etc.) on the same network.",
+      "Mega Moolah is the long-running Microgaming progressive jackpot ladder that produced some of the biggest online casino wins on record (multiple seven-figure CAD payouts annually since 2006). Following Microgaming's transition to Games Global, the Mega Moolah brand sits alongside WowPot as a parallel network, same operator stable, same pool-aggregation principle, different jackpot ceilings. The base Mega Moolah game itself remains in heavy rotation across the Bayton 4 and Casino Rewards 7 lobbies, with sister titles (Mega Moolah Atlantean Treasures, Mega Moolah Lucky Bachelorettes, etc.) on the same network.",
     tiers: ["Mini · seed C$10", "Minor · seed C$100", "Major · seed C$10k", "Mega · seed C$1M typical"],
     availableAt:
-      "Same brands as WowPot — every Microgaming/Games Global property in our 13",
+      "Same brands as WowPot, every Microgaming/Games Global property in our 13",
   },
   {
     name: "Mega Money Wheel",
     tagline: "The Casino Rewards group's signature welcome-mechanic jackpot",
     body:
       "Mega Money Wheel is the wheel-spin mechanic Casino Rewards uses to convert the group's signature low-deposit entrance offers (Yukon Gold's 150 chances for $10, Zodiac's 80 chances for $1, Casino Classic's free no-deposit chance, etc.) into a real progressive jackpot draw. Hits feed into the same Mega Moolah/WowPot pool ecosystem, so the headline win can be life-changing. The wheel is unique to the Casino Rewards lobby and isn't available at the Bayton family or Betway.",
-    tiers: ["Multi-tier — fed into the Microgaming progressive pool"],
+    tiers: ["Multi-tier, fed into the Microgaming progressive pool"],
     availableAt:
-      "Casino Rewards group only — Yukon Gold, Zodiac, Captain Cooks, Grand Mondial, Casino Classic (no-deposit chance), Golden Tiger, Luxury",
+      "Casino Rewards group only, Yukon Gold, Zodiac, Captain Cooks, Grand Mondial, Casino Classic (no-deposit chance), Golden Tiger, Luxury",
   },
 ];
 
@@ -57,7 +57,7 @@ export default function JackpotsPage() {
           </h1>
           <p className="text-lg md:text-xl text-gray-700 max-w-3xl leading-relaxed">
             Three jackpot networks power virtually every progressive win across the brands
-            we cover — WowPot, the wider Mega Moolah family, and the Casino Rewards Mega
+            we cover, WowPot, the wider Mega Moolah family, and the Casino Rewards Mega
             Money Wheel mechanic. Here&apos;s what each is, how they pay out, and which
             operators carry them.
           </p>
@@ -78,7 +78,7 @@ export default function JackpotsPage() {
             <strong>The implication for players</strong>: the bigger the network, the
             bigger the headline pool. Multi-operator networks like WowPot and Mega Moolah
             consistently clear seven figures CAD because every spin at every participating
-            casino — across dozens of brands worldwide — contributes to one shared pot.
+            casino, across dozens of brands worldwide, contributes to one shared pot.
           </p>
         </div>
 
@@ -134,12 +134,12 @@ export default function JackpotsPage() {
             >
               wowpot.org
             </a>{" "}
-            site covers the network in more depth — game-by-game RTPs, current jackpot pool
+            site covers the network in more depth, game-by-game RTPs, current jackpot pool
             sizes (live), participating operators worldwide, and the network&apos;s
             historical big-win archive.
           </p>
           <p className="text-sm text-gray-600">
-            wowpot.org is a sister property — independently editorial, but built on the same
+            wowpot.org is a sister property, independently editorial, but built on the same
             content team behind casinoexpert.ai.
           </p>
         </section>

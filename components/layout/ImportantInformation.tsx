@@ -1,5 +1,5 @@
 /**
- * Important Information — required disclaimers + freshness footer.
+ * Important Information, required disclaimers + freshness footer.
  */
 export function ImportantInformation() {
   return (
@@ -23,7 +23,7 @@ export function ImportantInformation() {
         </p>
         <p>
           <strong>Responsible gambling:</strong> if you or someone you know has a gambling
-          problem, help is available — see{" "}
+          problem, help is available, see{" "}
           <a
             href="https://www.gamcare.org.uk/"
             target="_blank"

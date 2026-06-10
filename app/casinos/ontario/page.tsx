@@ -9,12 +9,12 @@ import { brandLogoSrc } from "@/lib/brand-logos";
  * deals on. Affiliate links are the same tracked URLs in use on
  * casinogpt.ai for those brands.
  *
- * AGCO Standard 2.05 binds the copy on this page — no welcome-offer,
+ * AGCO Standard 2.05 binds the copy on this page, no welcome-offer,
  * bonus, free-spin, jackpot-$, loyalty-program or inducement language.
  * Brand descriptions are factual and neutral.
  *
  * The Ask CasinoExpert chat is intentionally EXCLUDED on this route
- * (see components/chat/ContentChatBanner EXCLUDED_PATHS) — the global
+ * (see components/chat/ContentChatBanner EXCLUDED_PATHS), the global
  * chat is rest-of-Canada-flavoured and can't be served here without an
  * AGCO-compliant variant. Build that variant later when it's needed.
  */

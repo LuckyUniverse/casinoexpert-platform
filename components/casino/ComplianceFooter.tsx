@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 /**
- * Compliance footer — 19+ Canada badge, responsible gambling logos,
- * copyright, secondary links. ROC-flavoured (no ConnexOntario — that lives
+ * Compliance footer, 19+ Canada badge, responsible gambling logos,
+ * copyright, secondary links. ROC-flavoured (no ConnexOntario, that lives
  * on the Ontario page when we build it).
  */
 export function ComplianceFooter() {
@@ -26,7 +26,7 @@ export function ComplianceFooter() {
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-2 md:px-4 bg-orange-100 rounded-lg hover:bg-orange-200 transition flex-shrink-0"
-            aria-label="GamCare — gambling support and treatment"
+            aria-label="GamCare, gambling support and treatment"
           >
             <span className="text-xs md:text-sm font-semibold text-orange-800 whitespace-nowrap">
               GamCare
@@ -37,7 +37,7 @@ export function ComplianceFooter() {
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-2 md:px-4 bg-gray-100 rounded-lg hover:bg-gray-200 transition flex-shrink-0"
-            aria-label="Gamblers Anonymous — peer support meetings"
+            aria-label="Gamblers Anonymous, peer support meetings"
           >
             <span className="text-xs md:text-sm font-semibold text-gray-800 whitespace-nowrap">
               Gamblers Anonymous

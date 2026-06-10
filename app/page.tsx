@@ -5,8 +5,8 @@ import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
 
 /**
  * Homepage. The Ask CasinoExpert hero is rendered above by ContentChatBanner
- * in the root layout — this page just renders the brand grid and the
- * Andre Weston methodology nudge below.
+ * in the root layout. This page renders the scope note, brand grid, how-we-review
+ * methodology block, and the Andre Weston author callout.
  */
 export default function Home() {
   const brands = allCasinosInOrder();
@@ -14,12 +14,27 @@ export default function Home() {
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        {/* Scope note */}
+        <section className="mb-12 text-center">
+          <p className="text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            casinoexpert.ai reviews international online casinos serving Canadian players.
+            Every brand on this site accepts CAD, supports Interac e-Transfer at the cashier,
+            and holds an independent international licence.
+          </p>
+        </section>
+
+        {/* Brand grid */}
         <section id="casinos" className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-2">
-            Featured Canadian online casinos
-          </h2>
+          <div className="flex items-baseline justify-between mb-2 flex-wrap gap-2">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Featured Canadian online casinos
+            </h2>
+            <p className="text-xs text-gray-500 font-medium uppercase tracking-wider">
+              Last full review pass: June 2026
+            </p>
+          </div>
           <p className="text-base text-gray-600 mb-8">
-            Thirteen brands fully reviewed for the rest-of-Canada market. Brands
+            Thirteen brands fully reviewed for Canadian players. Brands
             ordered by our internal commercial priority. Verify each offer at the
             cashier before depositing.
           </p>
@@ -85,6 +100,52 @@ export default function Home() {
           </div>
         </section>
 
+        {/* How we review */}
+        <section className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900 mb-3">
+              How we review
+            </h2>
+            <p className="text-base text-gray-600 max-w-2xl mx-auto">
+              Three things that separate a real operator review from a rewrite of
+              the operator&apos;s own marketing copy.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition">
+              <p className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-3">
+                Real deposits, real withdrawals
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Every brand is tested with funded play, not a registration walkthrough.
+                Withdrawal timelines are measured stopwatch in hand, from cashier
+                request to funds in the bank account.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition">
+              <p className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-3">
+                Operator-side experience
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Andre Weston has 20+ years inside the industry. Reviews flag the
+                operational behaviours (cashier policies, KYC patterns, bonus terms)
+                that matter once you&apos;re actually playing, not just signing up.
+              </p>
+            </div>
+            <div className="bg-white rounded-xl border border-gray-200 p-6 hover:shadow-md transition">
+              <p className="text-xs font-bold text-blue-700 uppercase tracking-wider mb-3">
+                Trust score, not vibe score
+              </p>
+              <p className="text-sm text-gray-700 leading-relaxed">
+                Each brand&apos;s score sums licensing, length of operation,
+                third-party audit status, ownership transparency, and complaint
+                history. A measurable signal, not a feeling.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Andre Weston callout */}
         <section className="bg-blue-50 border-2 border-blue-200 rounded-xl p-8 text-center">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">
             Reviewed by an industry expert
@@ -99,7 +160,7 @@ export default function Home() {
             </Link>
             , an iGaming industry consultant with twenty years of operator-side
             experience. Reviews are written from operational knowledge of how
-            brands actually behave at the cashier, KYC desk and bonus system —
+            brands actually behave at the cashier, KYC desk and bonus system,
             not from operator marketing copy.
           </p>
           <Link

@@ -80,7 +80,7 @@ export default function ComparePage() {
                 onChange={(e) => setter(e.target.value || null)}
                 className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2.5 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500"
               >
-                <option value="">, pick a brand,</option>
+                <option value="">Pick a brand</option>
                 {brands.map((b) => (
                   <option key={b.slug} value={b.slug}>
                     {b.name}
@@ -162,7 +162,7 @@ export default function ComparePage() {
                         key={idx}
                         className="px-5 py-3 text-gray-900 border-l border-gray-200 align-top"
                       >
-                        {slug ? valueFor(slug, field) : ", "}
+                        {slug ? valueFor(slug, field) : <span className="text-gray-300">-</span>}
                       </td>
                     ))}
                   </tr>

@@ -40,6 +40,9 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-  // Protect every route except Next internals and the favicon.
-  matcher: ["/((?!_next/|favicon\\.ico).*)"],
+  // Protect every route except Next internals, the favicon, and the public
+  // JSON API (/api/*) — the API is meant to be consumed by the native apps and
+  // can't send the holding-page credentials, so it stays open even when the
+  // human-facing pages are walled.
+  matcher: ["/((?!_next/|api/|favicon\\.ico).*)"],
 };

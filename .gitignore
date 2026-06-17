@@ -38,3 +38,4 @@ docs/_pdf-text.txt
 
 # Tmp folders left behind if the screenshot extractor is interrupted
 /.tmp-screenshots-raw/
+.env*.local

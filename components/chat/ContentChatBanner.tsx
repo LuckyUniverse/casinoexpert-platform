@@ -45,7 +45,6 @@ export function ContentChatBanner() {
       <>
         <div
           id="ask-casinoexpert"
-          data-nosnippet=""
           aria-label="Ask CasinoExpert"
           className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white min-h-[calc(100vh-56px)] flex flex-col justify-center"
         >
@@ -59,14 +58,20 @@ export function ContentChatBanner() {
                   Canadian Online Casinos
                 </span>
               </div>
-              <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+              {/* Brand label for the chat tool — intentionally NOT an <h1>;
+                  the page's descriptive <h1> lives in the content below. */}
+              <p className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
                 Ask CasinoExpert
-              </h1>
+              </p>
               <p className="text-lg md:text-xl text-blue-100 max-w-2xl mx-auto">
                 Your Canadian online casino expert.
               </p>
             </div>
-            <ChatHero mode={chatMode} />
+            {/* data-nosnippet scoped to the interactive widget only, so the
+                page's real content remains eligible for snippets / AI features. */}
+            <div data-nosnippet="">
+              <ChatHero mode={chatMode} />
+            </div>
           </div>
         </div>
         <div className="bg-gray-50 border-b border-gray-200 py-2">

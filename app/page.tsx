@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { allCasinosInOrder } from "@/lib/casino-data";
 import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
+import { itemList, jsonLdGraph } from "@/lib/seo/jsonld";
 
 /**
  * Homepage. The Ask CasinoExpert hero is rendered above by ContentChatBanner
@@ -10,18 +11,28 @@ import { hasBrandLogo, brandLogoSrc } from "@/lib/brand-logos";
  */
 export default function Home() {
   const brands = allCasinosInOrder();
+  const homeJsonLd = jsonLdGraph(
+    itemList(brands.map((b) => ({ name: b.name, url: `/casinos/${b.slug}` }))),
+  );
 
   return (
     <div className="bg-gradient-to-b from-gray-50 to-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homeJsonLd) }}
+      />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Scope note */}
-        <section className="mb-12 text-center">
+        {/* Page heading — the single, descriptive <h1> for the homepage. */}
+        <header className="mb-12 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+            Best Online Casinos in Canada — Expert Reviews &amp; AI Answers (2026)
+          </h1>
           <p className="text-sm md:text-base text-gray-600 max-w-3xl mx-auto leading-relaxed">
             casinoexpert.ai reviews international online casinos serving Canadian players.
             Every brand on this site accepts CAD, supports Interac e-Transfer at the cashier,
             and holds an independent international licence.
           </p>
-        </section>
+        </header>
 
         {/* Brand grid */}
         <section id="casinos" className="mb-16">

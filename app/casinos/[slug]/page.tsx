@@ -3,12 +3,10 @@ import { notFound } from "next/navigation";
 import { BrandReviewTemplate } from "@/components/casino/BrandReviewTemplate";
 import type { CasinoConfig } from "@/components/casino/types";
 import { allCasinoSlugs, getCasino } from "@/lib/casino-data";
+import { stripHtml } from "@/lib/text";
+import { breadcrumbList } from "@/lib/seo/jsonld";
 
 const SITE = "https://casinoexpert.ai";
-
-function stripHtml(s: string): string {
-  return s.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
-}
 
 /**
  * Review + FAQPage structured data — helps the page get cited by LLMs and
@@ -52,6 +50,13 @@ function buildJsonLd(c: CasinoConfig) {
       })),
     });
   }
+
+  graph.push(
+    breadcrumbList([
+      { name: "Home", url: "/" },
+      { name: `${c.name} review`, url: `/casinos/${c.slug}` },
+    ]),
+  );
 
   return { "@context": "https://schema.org", "@graph": graph };
 }

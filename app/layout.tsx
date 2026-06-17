@@ -4,7 +4,10 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { ContentChatBanner } from "@/components/chat/ContentChatBanner";
 import { PageFooter } from "@/components/layout/PageFooter";
+import { jsonLdGraph, organization, website } from "@/lib/seo/jsonld";
 import "./globals.css";
+
+const rootJsonLd = jsonLdGraph(organization(), website());
 
 // Build the verification object only when the env vars are set, so the meta
 // tags appear only once a Google/Bing token actually exists.
@@ -54,6 +57,10 @@ export default function RootLayout({
   return (
     <html lang="en-CA">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(rootJsonLd) }}
+        />
         <SiteHeader />
         <ContentChatBanner />
         {children}

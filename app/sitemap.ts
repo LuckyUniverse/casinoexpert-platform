@@ -17,14 +17,21 @@ import { allCasinosInOrder } from "@/lib/casino-data";
 const BASE = "https://casinoexpert.ai";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  // ISO date stamp anchored to last editorial pass - refresh when content
-  // ships a real update. (Date.now() can drift during build prerender, so
-  // we keep this static.)
-  const lastModified = "2026-06-09";
+  // Per-URL lastModified derives from each brand's lastReviewed so freshness
+  // signals move whenever a review is updated. (Date.now() is avoided — it
+  // drifts during prerender; we read freshness from the content instead.)
+  const FALLBACK = "2026-06-09";
+  const brands = allCasinosInOrder();
+  const freshest =
+    brands
+      .map((b) => b.lastReviewed)
+      .filter((d): d is string => Boolean(d))
+      .sort()
+      .pop() ?? FALLBACK;
 
-  const brandRoutes: MetadataRoute.Sitemap = allCasinosInOrder().map((brand) => ({
+  const brandRoutes: MetadataRoute.Sitemap = brands.map((brand) => ({
     url: `${BASE}/casinos/${brand.slug}`,
-    lastModified,
+    lastModified: brand.lastReviewed ?? FALLBACK,
     changeFrequency: "weekly",
     priority: 0.9,
   }));
@@ -32,50 +39,50 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: `${BASE}/`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "daily",
       priority: 1.0,
     },
     {
       url: `${BASE}/casinos/ontario`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "weekly",
       priority: 0.95,
     },
     ...brandRoutes,
     {
       url: `${BASE}/compare`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: `${BASE}/games`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${BASE}/jackpots`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "weekly",
       priority: 0.7,
     },
     {
       url: `${BASE}/payments`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "monthly",
       priority: 0.6,
     },
     {
       url: `${BASE}/responsible-gambling`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
       url: `${BASE}/authors/andre-weston`,
-      lastModified,
+      lastModified: freshest,
       changeFrequency: "monthly",
       priority: 0.5,
     },

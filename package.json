@@ -11,6 +11,7 @@
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.82",
     "@ai-sdk/react": "^3.0.201",
+    "@next/third-parties": "^16.2.9",
     "ai": "^6.0.199",
     "next": "16.1.6",
     "react": "19.2.3",

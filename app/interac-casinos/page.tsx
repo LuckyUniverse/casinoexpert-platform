@@ -3,14 +3,18 @@ import type { Metadata } from "next";
 import type { CasinoConfig } from "@/components/casino/types";
 import { allCasinosInOrder } from "@/lib/casino-data";
 import { breadcrumbList, faqPage, itemList, jsonLdGraph } from "@/lib/seo/jsonld";
+import { ChatHero } from "@/components/chat/ChatHero";
 
 /**
- * "Answer page" prototype: targets the Interac cluster (interac casino / interac
- * casinos canada / instant-withdrawal) with server-rendered, citable content —
- * a ranked table of every Interac casino we cover with Andre's tested withdrawal
- * timings + an FAQ. The "Ask CasinoExpert" chat banner (rendered site-wide by
- * the layout) is auto-scoped to Interac questions on this path via
- * lib/chat/suggested-questions.ts. Content ranks/gets cited; chat engages.
+ * "Answer page" — DeepAI-style, for our niche. The page LEADS with an
+ * interactive, Interac-scoped chat (ChatHero), pre-opened with a server-rendered
+ * answer and clickable questions that stream live answers. Below the chat sits
+ * the ranked table + FAQ + schema — the part Google/ChatGPT crawl and cite.
+ *
+ * The chat is the hook/experience; the static content is the ranking asset.
+ * Interac suggested questions are auto-scoped to this path via
+ * lib/chat/suggested-questions.ts. The site-wide chat banner is suppressed here
+ * (ContentChatBanner EXCLUDED_PATHS) so this embedded chat is the single entry.
  *
  * Reads the casino registry only — no content/data is modified.
  */
@@ -18,12 +22,12 @@ import { breadcrumbList, faqPage, itemList, jsonLdGraph } from "@/lib/seo/jsonld
 export const metadata: Metadata = {
   title: "Interac Casinos in Canada — Withdrawal Speeds Tested (2026)",
   description:
-    "Every Canadian online casino we review accepts Interac. We tested Interac withdrawal speeds — which pay fastest, the C$4,000 weekly caps to watch, and how Interac e-Transfer works.",
+    "Ask our AI about Interac casinos, or read the ranked list. Every Canadian online casino we review accepts Interac — we tested withdrawal speeds, the C$4,000 weekly caps, and how e-Transfer works.",
   alternates: { canonical: "/interac-casinos" },
   openGraph: {
     title: "Interac Casinos in Canada — Withdrawal Speeds Tested (2026)",
     description:
-      "Ranked Interac casinos for Canadian players with tested withdrawal timings, weekly caps, and how e-Transfer works.",
+      "Ask CasinoExpert about Interac casinos, or read the ranked list with tested withdrawal timings.",
     url: "/interac-casinos",
     type: "article",
   },
@@ -49,7 +53,7 @@ const FAQS: Array<{ question: string; answer: string }> = [
   {
     question: "What is the difference between Interac and Interac e-Transfer at casinos?",
     answer:
-      "“Interac” online deposit (Interac Online) debits your bank account directly at the cashier, while Interac e-Transfer sends money from your online banking using an email address. Most Canadian casinos support one or both. For withdrawals, casinos typically return funds via Interac e-Transfer to the email on your bank profile.",
+      "“Interac” online deposit debits your bank account directly at the cashier, while Interac e-Transfer sends money from your online banking using an email address. Most Canadian casinos support one or both. For withdrawals, casinos typically return funds via Interac e-Transfer to the email on your bank profile.",
   },
 ];
 
@@ -76,36 +80,47 @@ export default function InteracCasinosPage() {
   );
 
   return (
-    <div className="bg-gradient-to-b from-gray-50 to-white">
+    <div className="bg-white">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Header */}
-        <header className="mb-8">
-          <p className="text-xs font-semibold text-blue-600 uppercase tracking-wider mb-2">
-            Banking · Withdrawal speeds tested
+
+      {/* Chat-led hero: the page opens as an Interac chat that's already answered */}
+      <section className="bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-blue-300 mb-3">
+            Banking · Ask CasinoExpert
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 leading-tight">
             Interac Casinos in Canada — Withdrawal Speeds Tested (2026)
           </h1>
-          {/* Direct answer (AI-citation snippet) */}
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-5 text-gray-800 leading-relaxed">
-            <strong>Direct answer:</strong> All {casinos.length} casinos we review for
-            Canadian players accept Interac, including Interac e-Transfer. In our testing,
-            Interac withdrawals clear in roughly <strong>1–5 business days</strong> depending
-            on the operator — Betway&apos;s sportsbook side is the fastest at about{" "}
-            <strong>1–3 days</strong>, while Casino Rewards brands apply a{" "}
-            <strong>C$4,000 weekly withdrawal cap</strong>. Interac deposits are effectively
-            instant. Timings below are reviewed by{" "}
-            <Link href="/authors/andre-weston" className="text-blue-700 hover:underline font-semibold">
-              Andre Weston
-            </Link>
-            .
-          </div>
-        </header>
+          <p className="text-blue-100 mb-6 max-w-2xl">
+            Ask anything about Interac casinos — answers draw on Andre Weston&apos;s tested
+            data. Tap a question to start, or scroll for the full ranked list.
+          </p>
 
+          {/* Server-rendered opening answer, styled as the chat's first reply
+              (citable content + the "already answered" feel). */}
+          <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 mb-4">
+            <div className="flex justify-start">
+              <div className="max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-relaxed bg-gray-50 text-gray-800 border border-gray-100">
+                <strong>All {casinos.length} casinos we review for Canadians accept Interac</strong>,
+                including Interac e-Transfer. In our testing, Interac withdrawals clear in roughly{" "}
+                <strong>1–5 business days</strong> — Betway&apos;s sportsbook side is fastest at
+                about <strong>1–3 days</strong>, while Casino Rewards brands apply a{" "}
+                <strong>C$4,000 weekly cap</strong>. Deposits are effectively instant. Ask a
+                follow-up below ↓
+              </div>
+            </div>
+          </div>
+
+          {/* Live, interactive chat — clickable Interac questions stream real answers */}
+          <ChatHero mode="default" />
+        </div>
+      </section>
+
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Ranked table */}
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
@@ -166,7 +181,7 @@ export default function InteracCasinosPage() {
         </section>
 
         {/* What we found */}
-        <section className="mb-10 prose-sm max-w-none">
+        <section className="mb-10">
           <h2 className="text-2xl font-bold text-gray-900 mb-3">What we found testing Interac payouts</h2>
           <div className="space-y-3 text-gray-700 leading-relaxed">
             <p>
@@ -177,12 +192,10 @@ export default function InteracCasinosPage() {
             </p>
             <p>
               The fastest Interac payouts in our coverage come from Betway&apos;s sportsbook
-              side at roughly <strong>1–3 business days</strong> — notably quicker than the
-              casino&apos;s own banking. The Casino Rewards group brands apply a{" "}
-              <strong>C$4,000 weekly withdrawal cap</strong>, which drip-feeds large wins over
-              several weeks — worth knowing before you chase a jackpot. Across every brand, your{" "}
-              <strong>first</strong> withdrawal is slower because identity verification (KYC) has
-              to clear first.
+              side at roughly <strong>1–3 business days</strong>. The Casino Rewards group brands
+              apply a <strong>C$4,000 weekly withdrawal cap</strong>, which drip-feeds large wins
+              over several weeks. Across every brand, your <strong>first</strong> withdrawal is
+              slower because identity verification (KYC) has to clear first.
             </p>
             <p>
               Prefer to compare two brands directly? Use the{" "}
@@ -193,32 +206,8 @@ export default function InteracCasinosPage() {
           </div>
         </section>
 
-        {/* Chat CTA — the "ChatGPT for casinos" layer, scoped to Interac */}
-        <section className="mb-10 bg-gradient-to-br from-blue-900 to-indigo-900 rounded-xl p-6 text-white">
-          <h2 className="text-xl font-bold mb-2">Ask CasinoExpert about Interac</h2>
-          <p className="text-blue-100 text-sm mb-4 max-w-2xl">
-            Use the <strong>Ask CasinoExpert</strong> bar at the top of the page for a personal
-            answer. On this page it&apos;s ready with Interac questions like:
-          </p>
-          <ul className="flex flex-wrap gap-2">
-            {[
-              "Which Interac casino pays out fastest?",
-              "Are Interac casinos safe and legal in Canada?",
-              "Does Interac e-Transfer work for withdrawals?",
-              "Which Interac casinos have a weekly cap?",
-            ].map((q) => (
-              <li
-                key={q}
-                className="text-sm bg-white/15 border border-white/20 rounded-full px-4 py-2"
-              >
-                {q}
-              </li>
-            ))}
-          </ul>
-        </section>
-
         {/* FAQ */}
-        <section className="mb-4">
+        <section>
           <h2 className="text-2xl font-bold text-gray-900 mb-5">Interac casino FAQ</h2>
           <div className="space-y-4">
             {FAQS.map((f) => (

@@ -13,6 +13,9 @@ const EXCLUDED_PATHS = new Set<string>([
   "/privacy",
   "/terms",
   "/methodology",
+  // Pages that embed their own topic-scoped ChatHero, so the site-wide banner
+  // would be a redundant second chat entry point.
+  "/interac-casinos",
 ]);
 
 export function ContentChatBanner() {

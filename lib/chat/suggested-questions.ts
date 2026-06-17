@@ -33,6 +33,13 @@ const ONTARIO_QUESTIONS = [
   "What's the difference between AGCO and iGaming Ontario?",
 ];
 
+const INTERAC_QUESTIONS = [
+  "Which Interac casino pays out fastest?",
+  "Are Interac casinos safe and legal in Canada?",
+  "Does Interac e-Transfer work for casino withdrawals?",
+  "Which Interac casinos have a weekly withdrawal cap?",
+];
+
 const AUTHOR_QUESTIONS = [
   "Who is Andre Weston?",
   "How does casinoexpert.ai pick which casinos to review?",
@@ -56,6 +63,8 @@ export function getSuggestedQuestions(pathname: string | null): string[] {
   if (!pathname || pathname === "/") return HOMEPAGE_QUESTIONS;
 
   if (pathname === "/casinos/ontario") return ONTARIO_QUESTIONS;
+
+  if (pathname.startsWith("/interac-casinos")) return INTERAC_QUESTIONS;
 
   // /casinos/<slug>
   const casinoMatch = pathname.match(/^\/casinos\/([^/]+)/);

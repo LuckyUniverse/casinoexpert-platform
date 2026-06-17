@@ -67,6 +67,17 @@ export function itemList(items: { name: string; url: string }[]): Node {
   };
 }
 
+export function faqPage(faqs: { question: string; answer: string }[]): Node {
+  return {
+    "@type": "FAQPage",
+    mainEntity: faqs.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
+  };
+}
+
 /** Wrap one or more nodes in a schema.org graph document. */
 export function jsonLdGraph(...nodes: Node[]): Node {
   return { "@context": "https://schema.org", "@graph": nodes };

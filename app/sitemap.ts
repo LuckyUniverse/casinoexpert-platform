@@ -51,6 +51,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...brandRoutes,
     {
+      url: `${BASE}/interac-casinos`,
+      lastModified: freshest,
+      changeFrequency: "weekly",
+      priority: 0.85,
+    },
+    {
       url: `${BASE}/compare`,
       lastModified: freshest,
       changeFrequency: "weekly",

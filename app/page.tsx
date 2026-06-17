@@ -111,6 +111,37 @@ export default function Home() {
           </div>
         </section>
 
+        {/* Explore — internal links to every section (hub-and-spoke). */}
+        <section className="mb-16">
+          <h2 className="text-2xl font-bold text-gray-900 mb-5">Explore casinoexpert.ai</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <Link href="/compare" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">Compare casinos side-by-side →</span>
+              <span className="block text-sm text-gray-600 mt-1">Operator, licence, banking and trust signals in one view.</span>
+            </Link>
+            <Link href="/payments" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">Payment methods →</span>
+              <span className="block text-sm text-gray-600 mt-1">Interac e-Transfer, cards and crypto at Canadian casinos.</span>
+            </Link>
+            <Link href="/games" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">Games →</span>
+              <span className="block text-sm text-gray-600 mt-1">Slots, live dealer and table games you can actually play.</span>
+            </Link>
+            <Link href="/jackpots" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">Progressive jackpots →</span>
+              <span className="block text-sm text-gray-600 mt-1">How WowPot and Mega Moolah networks work in Canada.</span>
+            </Link>
+            <Link href="/responsible-gambling" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">Responsible gambling →</span>
+              <span className="block text-sm text-gray-600 mt-1">Self-help tools and Canadian support resources.</span>
+            </Link>
+            <Link href="/authors/andre-weston" className="block rounded-lg border border-gray-200 bg-white px-5 py-4 hover:border-blue-300 hover:shadow-sm transition">
+              <span className="font-semibold text-blue-600">About our expert →</span>
+              <span className="block text-sm text-gray-600 mt-1">Andre Weston — 20+ years operator-side iGaming experience.</span>
+            </Link>
+          </div>
+        </section>
+
         {/* How we review */}
         <section className="mb-16">
           <div className="text-center mb-8">

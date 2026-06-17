@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSuggestedQuestions } from "@/lib/chat/suggested-questions";
+import { topQuestions } from "@/lib/chat/question-log";
 
 /**
  * GET /api/questions
@@ -13,9 +14,10 @@ const CORS_AND_CACHE = {
   "Cache-Control": "public, s-maxage=3600, stale-while-revalidate=86400",
 } as const;
 
-export function GET() {
-  return NextResponse.json(
-    { questions: getSuggestedQuestions("/") },
-    { headers: CORS_AND_CACHE },
-  );
+export async function GET() {
+  // Prefer genuinely top-asked questions once enough are logged; otherwise fall
+  // back to the curated list (and before any KV store is provisioned).
+  const top = await topQuestions(8);
+  const questions = top.length >= 4 ? top : getSuggestedQuestions("/");
+  return NextResponse.json({ questions }, { headers: CORS_AND_CACHE });
 }

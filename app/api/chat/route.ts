@@ -3,6 +3,21 @@ import { streamText, convertToModelMessages } from "ai";
 import { SYSTEM_PROMPT } from "@/lib/chat/system-prompt";
 import { SYSTEM_PROMPT_ONTARIO } from "@/lib/chat/system-prompt-ontario";
 import { KNOWLEDGE_BASE } from "@/lib/chat/knowledge-base";
+import { logQuestion } from "@/lib/chat/question-log";
+
+/** Extract the latest user message's text from UIMessage `parts`. */
+function lastUserText(messages: unknown[]): string {
+  for (let i = messages.length - 1; i >= 0; i--) {
+    const m = messages[i] as { role?: string; parts?: { type?: string; text?: string }[]; content?: string };
+    if (m?.role !== "user") continue;
+    if (Array.isArray(m.parts)) {
+      const t = m.parts.filter((p) => p?.type === "text").map((p) => p.text ?? "").join(" ").trim();
+      if (t) return t;
+    }
+    if (typeof m.content === "string") return m.content;
+  }
+  return "";
+}
 
 export const maxDuration = 30;
 
@@ -58,6 +73,11 @@ export async function POST(req: Request) {
   }
 
   const { messages, mode } = await req.json();
+
+  // Record the question for popularity stats (best-effort; no-op without KV).
+  // Not awaited — the function stays alive during streaming, so it completes.
+  const asked = lastUserText(messages);
+  if (asked) void logQuestion(asked);
 
   // Cap conversation length to control token costs.
   const recentMessages = messages.slice(-10);

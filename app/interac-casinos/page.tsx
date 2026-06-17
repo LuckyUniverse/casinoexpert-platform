@@ -100,23 +100,13 @@ export default function InteracCasinosPage() {
             data. Tap a question to start, or scroll for the full ranked list.
           </p>
 
-          {/* Server-rendered opening answer, styled as the chat's first reply
-              (citable content + the "already answered" feel). */}
-          <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-5 mb-4">
-            <div className="flex justify-start">
-              <div className="max-w-[92%] rounded-2xl px-4 py-3 text-sm leading-relaxed bg-gray-50 text-gray-800 border border-gray-100">
-                <strong>All {casinos.length} casinos we review for Canadians accept Interac</strong>,
-                including Interac e-Transfer. In our testing, Interac withdrawals clear in roughly{" "}
-                <strong>1–5 business days</strong> — Betway&apos;s sportsbook side is fastest at
-                about <strong>1–3 days</strong>, while Casino Rewards brands apply a{" "}
-                <strong>C$4,000 weekly cap</strong>. Deposits are effectively instant. Ask a
-                follow-up below ↓
-              </div>
-            </div>
-          </div>
-
-          {/* Live, interactive chat — clickable Interac questions stream real answers */}
-          <ChatHero mode="default" />
+          {/* Live, interactive chat that OPENS already answered — a single card:
+              the opening reply renders as the first message inside ChatHero, then
+              clickable Interac questions stream live follow-ups below it. */}
+          <ChatHero
+            mode="default"
+            openingMessage={`**All ${casinos.length} casinos we review for Canadians accept Interac**, including Interac e-Transfer. In our testing, Interac withdrawals clear in roughly **1–5 business days** — Betway's sportsbook side is fastest at about **1–3 days**, while Casino Rewards brands apply a **C$4,000 weekly cap**. Deposits are effectively instant. Tap a question below to dig in ↓`}
+          />
         </div>
       </section>
 

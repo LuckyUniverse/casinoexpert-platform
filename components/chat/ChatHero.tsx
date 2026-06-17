@@ -11,7 +11,15 @@ import { getSuggestedQuestions } from "@/lib/chat/suggested-questions";
  * We pass `mode: "ontario"` in the request body so the API picks the strict
  * prompt; every other surface uses the default.
  */
-export function ChatHero({ mode = "default" }: { mode?: "default" | "ontario" }) {
+export function ChatHero({
+  mode = "default",
+  openingMessage,
+}: {
+  mode?: "default" | "ontario";
+  /** Optional pre-rendered assistant reply shown as the first message in the
+   *  thread, so a topic page can "open already answered" inside one chat card. */
+  openingMessage?: string;
+}) {
   const pathname = usePathname();
   const suggestedQuestions = getSuggestedQuestions(pathname);
 
@@ -68,13 +76,23 @@ export function ChatHero({ mode = "default" }: { mode?: "default" | "ontario" })
   return (
     <div className="w-full max-w-3xl mx-auto">
       <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 overflow-hidden mb-6">
-        {hasMessages && (
+        {(openingMessage || hasMessages) && (
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
             className="max-h-[400px] overflow-y-auto border-b border-gray-100"
           >
             <div className="p-5 space-y-4">
+              {openingMessage && (
+                <div className="flex justify-start">
+                  <div className="max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed bg-gray-50 text-gray-800 border border-gray-100">
+                    <div
+                      className="chat-prose"
+                      dangerouslySetInnerHTML={{ __html: formatMarkdown(openingMessage) }}
+                    />
+                  </div>
+                </div>
+              )}
               {messages.map((message) => {
                 const text = message.parts
                   .filter((p): p is { type: "text"; text: string } => p.type === "text")

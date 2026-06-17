@@ -20,7 +20,7 @@ import { brandLogoSrc } from "@/lib/brand-logos";
  */
 
 export const metadata: Metadata = {
-  title: "AGCO-Regulated Online Casinos in Ontario | casinoexpert.ai",
+  title: "AGCO-Regulated Online Casinos in Ontario | CasinoExpert AI",
   description:
     "Online casinos registered with iGaming Ontario and regulated by the AGCO. Twelve operators in our coverage, listed in commercial priority.",
   alternates: { canonical: "/casinos/ontario" },

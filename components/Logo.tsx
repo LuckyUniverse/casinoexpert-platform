@@ -14,10 +14,10 @@ export function Logo({
     <span
       className={`inline-flex items-center font-bold leading-none ${className}`}
       style={{ fontSize: height, letterSpacing: "-0.015em" }}
-      aria-label="casinoexpert.ai"
+      aria-label="CasinoExpert AI"
     >
-      <span className="text-gray-900">casinoexpert</span>
-      <span className="text-blue-600">.ai</span>
+      <span className="text-gray-900">CasinoExpert</span>
+      <span className="text-blue-600">&nbsp;AI</span>
     </span>
   );
 }

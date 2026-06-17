@@ -6,7 +6,7 @@ export const metadata: Metadata = {
     "Pick up to three of the thirteen Canadian online casinos we cover and compare them side-by-side - operator, licence, welcome offer, banking, support, eCOGRA status.",
   alternates: { canonical: "/compare" },
   openGraph: {
-    title: "Compare Canadian Online Casinos | casinoexpert.ai",
+    title: "Compare Canadian Online Casinos | CasinoExpert AI",
     description:
       "Side-by-side comparison of the brands on casinoexpert.ai - operator, licence, welcome offer, banking, support, trust signals.",
     url: "/compare",

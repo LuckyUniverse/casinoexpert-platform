@@ -33,8 +33,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://casinoexpert.ai"),
   title: {
-    default: "casinoexpert.ai - Your Ultimate, Factual, Objective Casino Guide for Canada",
-    template: "%s | casinoexpert.ai",
+    default: "CasinoExpert AI - Your Ultimate, Factual, Objective Casino Guide for Canada",
+    template: "%s | CasinoExpert AI",
   },
   description:
     "Objective reviews of the online casinos Canadians actually play at - licensing, banking, games, and trust signals laid out plainly.",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_CA",
-    siteName: "casinoexpert.ai",
+    siteName: "CasinoExpert AI",
   },
   twitter: { card: "summary_large_image" },
   ...(Object.keys(verificationConfig).length > 0 && { verification: verificationConfig }),

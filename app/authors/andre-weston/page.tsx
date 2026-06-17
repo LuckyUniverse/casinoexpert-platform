@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata: Metadata = {
-  title: "Andre Weston - iGaming Industry Expert | casinoexpert.ai",
+  title: "Andre Weston - iGaming Industry Expert | CasinoExpert AI",
   description:
     "Andre Weston is an iGaming industry expert with 20+ years of operator-side experience across casino operations, payments, player protection, VIP management and platform integrity. He reviews and signs every brand review on casinoexpert.ai.",
   alternates: { canonical: "/authors/andre-weston" },

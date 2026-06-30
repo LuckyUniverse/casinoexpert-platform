@@ -12,7 +12,7 @@ export const LUXURY_CASINO: CasinoConfig = {
  currency: "CAD",
  languages: ["English", "French"],
  minAge: 19,
- affiliateUrl: "https://iredirect.net/referral/?site=lxc&lang=en&aff_id=aff117127",
+ affiliateUrl: "https://iredirect.net/referral/?site=lxc&lang=en&aff_id=aff117127:campaignid1",
  dealLive: true,
  isActive: true,
  themeColor: "purple",

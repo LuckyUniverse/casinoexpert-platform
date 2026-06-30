@@ -53,7 +53,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2001,
     software: "Games Global (Microgaming)",
     logoSlug: "zodiac",
-    affiliateUrl: "https://iredirect.net/referral/?site=zc&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=zc&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Astrology-themed Casino Rewards brand on the Microgaming platform with progressive jackpot integration.",
   },
   {
@@ -86,7 +86,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2004,
     software: "Games Global (Microgaming)",
     logoSlug: "yukon-gold",
-    affiliateUrl: "https://iredirect.net/referral/?site=yg&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=yg&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Casino Rewards group brand on the Microgaming platform with cross-site loyalty progression.",
   },
   {
@@ -108,7 +108,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 1999,
     software: "Games Global (Microgaming)",
     logoSlug: "casino-classic",
-    affiliateUrl: "https://iredirect.net/referral/?site=cc&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=cc&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Long-running Casino Rewards brand with a verified Microgaming catalogue.",
   },
   {
@@ -119,7 +119,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2000,
     software: "Games Global (Microgaming)",
     logoSlug: "golden-tiger",
-    affiliateUrl: "https://iredirect.net/referral/?site=gt&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=gt&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Casino Rewards brand on the Microgaming platform with multi-tier VIP support.",
   },
   {
@@ -130,7 +130,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2005,
     software: "Games Global (Microgaming)",
     logoSlug: "grand-mondial",
-    affiliateUrl: "https://iredirect.net/referral/?site=gmd&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=gmd&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Casino Rewards group brand advertising one of the larger Microgaming catalogues in the family.",
   },
   {
@@ -141,7 +141,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2000,
     software: "Games Global (Microgaming)",
     logoSlug: "luxury-casino",
-    affiliateUrl: "https://iredirect.net/referral/?site=lxc&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=lxc&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Premium-positioned Casino Rewards brand on the Microgaming platform.",
   },
   {
@@ -163,7 +163,7 @@ export const ONTARIO_BRANDS: OntarioBrand[] = [
     founded: 2003,
     software: "Games Global (Microgaming)",
     logoSlug: "captain-cooks",
-    affiliateUrl: "https://iredirect.net/referral/?site=ccc&lang=en&aff_id=aff117127",
+    affiliateUrl: "https://iredirect.net/referral/?site=ccc&lang=en&aff_id=aff117127:campaignid1",
     blurb: "Explorer-themed Casino Rewards brand with cross-site loyalty progression.",
   },
 ];

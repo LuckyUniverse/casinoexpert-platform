@@ -180,6 +180,7 @@ export function SafetyCheckClient() {
   const [region, setRegion] = useState("");
   const [phase, setPhase] = useState<Phase>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [errorIsLimit, setErrorIsLimit] = useState(false);
   const [result, setResult] = useState<RatingResult | null>(null);
   const [checkedAt, setCheckedAt] = useState<Date | null>(null);
   const [stepIndex, setStepIndex] = useState(0);
@@ -243,6 +244,7 @@ export function SafetyCheckClient() {
 
     setPhase("running");
     setError(null);
+    setErrorIsLimit(false);
     setResult(null);
     setElapsed(0);
     setStepIndex(0);
@@ -266,6 +268,12 @@ export function SafetyCheckClient() {
           setAuthMode("register");
           setAuthNotice("Your free check is used. Create a free account for unlimited checks - just an email, no password.");
           setAuthOpen(true);
+          return;
+        }
+        if (body?.code === "daily_limit") {
+          setPhase("error");
+          setError(body.error);
+          setErrorIsLimit(true);
           return;
         }
         if (body?.code === "verify_email") {
@@ -464,11 +472,13 @@ export function SafetyCheckClient() {
       {phase === "error" && (
         <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-5">
           <p className="text-sm font-medium text-red-900">
-            The check could not be completed: {error}
+            {errorIsLimit ? error : `The check could not be completed: ${error}`}
           </p>
-          <p className="mt-1 text-xs text-red-700">
-            Try again - live checks occasionally time out.
-          </p>
+          {!errorIsLimit && (
+            <p className="mt-1 text-xs text-red-700">
+              Try again - live checks occasionally time out.
+            </p>
+          )}
         </div>
       )}
 

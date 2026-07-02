@@ -5,7 +5,7 @@ import { streamText } from "ai";
 import { SAFETY_CRITERIA, OTHER_RATINGS } from "@/lib/rating/criteria";
 import { getUserFromRequest, serializeCookie } from "@/lib/auth/session";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
-import { hashIp, hasUsedFreeCheck, markFreeCheckUsed } from "@/lib/auth/rate-limit";
+import { hashIp, hasUsedFreeCheck, markFreeCheckUsed, overLimit } from "@/lib/auth/rate-limit";
 
 /**
  * Live casino safety check (/safety-check).
@@ -154,10 +154,27 @@ export async function POST(req: Request) {
   if (userId) {
     const { data: user } = await getSupabaseAdmin()
       .from("cex_users")
-      .select("email_verified_at")
+      .select("email_verified_at, is_admin, email")
       .eq("id", userId)
       .single();
     if (user && user.email_verified_at) {
+      // Admins (DB flag, or listed in ADMIN_EMAILS) skip the daily quota.
+      const adminEmails = (process.env.ADMIN_EMAILS ?? "")
+        .toLowerCase()
+        .split(",")
+        .map((e) => e.trim())
+        .filter(Boolean);
+      const isAdmin = user.is_admin === true || adminEmails.includes(user.email.toLowerCase());
+
+      if (!isAdmin && (await overLimit(`cex:checks:user:${userId}`, 5, 60 * 60 * 24))) {
+        return new Response(
+          JSON.stringify({
+            error: "You've reached your 5 checks for today. Your allowance resets 24 hours after your first check.",
+            code: "daily_limit",
+          }),
+          { status: 429, headers: { "Content-Type": "application/json" } }
+        );
+      }
       allowed = true;
     } else if (user) {
       return new Response(

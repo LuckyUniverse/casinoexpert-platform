@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { AuthModal } from "@/components/auth/AuthModal";
 import {
   SAFETY_CRITERIA,
   OTHER_RATINGS,
@@ -130,6 +131,14 @@ const PROGRESS_STEPS = [
 
 type Phase = "idle" | "running" | "done" | "error";
 
+interface AuthUser {
+  id: string;
+  alias: string;
+  firstName: string;
+  email: string;
+  verified: boolean;
+}
+
 function extractJson(text: string): RatingResult {
   const start = text.indexOf("{");
   const end = text.lastIndexOf("}");
@@ -177,6 +186,41 @@ export function SafetyCheckClient() {
   const [elapsed, setElapsed] = useState(0);
   const abortRef = useRef<AbortController | null>(null);
 
+  // Auth state for the one-free-check gate
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [authOpen, setAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<"register" | "login">("register");
+  const [authNotice, setAuthNotice] = useState<string | undefined>(undefined);
+  const [toast, setToast] = useState<string | null>(null);
+
+  const refreshUser = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+      setUser(data.user ?? null);
+    } catch {
+      setUser(null);
+    }
+  }, []);
+
+  useEffect(() => {
+    refreshUser();
+    // Landing from a verification / sign-in email
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("verified") === "1") {
+      setToast("Email verified - you're signed in. Run as many checks as you like.");
+      window.history.replaceState({}, "", window.location.pathname);
+    } else if (params.get("verify_error") === "1") {
+      setToast("That link is invalid or expired. Sign in to get a fresh one.");
+      window.history.replaceState({}, "", window.location.pathname);
+    }
+  }, [refreshUser]);
+
+  async function signOut() {
+    await fetch("/api/auth/logout", { method: "POST" });
+    setUser(null);
+  }
+
   const regionOptions = REGIONS[country] ?? null;
 
   // Drive the progress display while a check is running.
@@ -217,6 +261,20 @@ export function SafetyCheckClient() {
 
       if (!res.ok) {
         const body = await res.json().catch(() => null);
+        if (body?.code === "registration_required") {
+          setPhase("idle");
+          setAuthMode("register");
+          setAuthNotice("Your free check is used. Create a free account for unlimited checks - just an email, no password.");
+          setAuthOpen(true);
+          return;
+        }
+        if (body?.code === "verify_email") {
+          setPhase("idle");
+          setAuthMode("login");
+          setAuthNotice("Almost there - click the link we emailed you. Enter your email below and we'll send a fresh one.");
+          setAuthOpen(true);
+          return;
+        }
         throw new Error(body?.error ?? `Check failed (${res.status})`);
       }
       if (!res.body) throw new Error("No response stream");
@@ -253,6 +311,51 @@ export function SafetyCheckClient() {
 
   return (
     <div>
+      {/* Toast (post-verification landing etc.) */}
+      {toast && (
+        <div className="mb-4 flex items-start justify-between rounded-lg border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+          <span>{toast}</span>
+          <button onClick={() => setToast(null)} aria-label="Dismiss" className="ml-3 text-emerald-700 hover:text-emerald-900">
+            ✕
+          </button>
+        </div>
+      )}
+
+      {/* Account strip */}
+      <div className="mb-3 flex items-center justify-between text-sm">
+        {user ? (
+          <>
+            <span className="text-gray-600">
+              Signed in as <span className="font-medium text-gray-900">{user.firstName}</span>
+              {!user.verified && (
+                <span className="ml-2 rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-800">
+                  email not verified
+                </span>
+              )}
+            </span>
+            <button onClick={signOut} className="text-gray-400 hover:text-gray-600">
+              Sign out
+            </button>
+          </>
+        ) : (
+          <>
+            <span className="text-gray-500">
+              Your first check is free. Unlimited checks with a free account.
+            </span>
+            <button
+              onClick={() => {
+                setAuthMode("login");
+                setAuthNotice(undefined);
+                setAuthOpen(true);
+              }}
+              className="font-medium text-blue-600 hover:underline"
+            >
+              Sign in
+            </button>
+          </>
+        )}
+      </div>
+
       {/* Input form */}
       <form
         onSubmit={runCheck}
@@ -532,6 +635,14 @@ export function SafetyCheckClient() {
           </p>
         </div>
       )}
+
+      <AuthModal
+        open={authOpen}
+        initialMode={authMode}
+        notice={authNotice}
+        onClose={() => setAuthOpen(false)}
+        onAuthChanged={refreshUser}
+      />
     </div>
   );
 }

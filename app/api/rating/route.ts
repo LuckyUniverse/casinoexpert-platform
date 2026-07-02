@@ -1,6 +1,11 @@
+import { randomUUID } from "crypto";
+import { cookies } from "next/headers";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import { streamText } from "ai";
 import { SAFETY_CRITERIA, OTHER_RATINGS } from "@/lib/rating/criteria";
+import { getUserFromRequest, serializeCookie } from "@/lib/auth/session";
+import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { hashIp, hasUsedFreeCheck, markFreeCheckUsed } from "@/lib/auth/rate-limit";
 
 /**
  * Live casino safety check (/safety-check).
@@ -137,6 +142,61 @@ export async function POST(req: Request) {
     );
   }
 
+  // ---- Registration gate: one free check, then account required. ----
+  // Verified account -> unlimited (the per-IP hourly limit above still applies).
+  // Registered but unverified -> must click the verification email first.
+  // Anonymous -> exactly one check, tracked by httpOnly cookie AND per-IP
+  // record in Redis (server-side, so clearing cookies doesn't reset it).
+  const setCookies: string[] = [];
+  const userId = await getUserFromRequest();
+  let allowed = false;
+
+  if (userId) {
+    const { data: user } = await getSupabaseAdmin()
+      .from("cex_users")
+      .select("email_verified_at")
+      .eq("id", userId)
+      .single();
+    if (user && user.email_verified_at) {
+      allowed = true;
+    } else if (user) {
+      return new Response(
+        JSON.stringify({
+          error: "Please verify your email to keep running checks.",
+          code: "verify_email",
+        }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+    // Session for a deleted user falls through to the anonymous path.
+  }
+
+  if (!allowed) {
+    const cookieStore = await cookies();
+    const ipHash = hashIp(ip);
+    let anonId = cookieStore.get("cex_anon")?.value ?? "";
+    if (!/^[a-f0-9-]{36}$/.test(anonId)) {
+      anonId = randomUUID();
+      setCookies.push(serializeCookie("cex_anon", anonId, { maxAge: 60 * 60 * 24 * 365 }));
+    }
+
+    const usedCookie = cookieStore.get("cex_free")?.value === "used";
+    const usedServer = await hasUsedFreeCheck(anonId, ipHash);
+    if (usedCookie || usedServer) {
+      return new Response(
+        JSON.stringify({
+          error: "Your free check is used. Create a free account for unlimited checks.",
+          code: "registration_required",
+        }),
+        { status: 403, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    await markFreeCheckUsed(anonId, ipHash);
+    setCookies.push(serializeCookie("cex_free", "used", { maxAge: 60 * 60 * 24 * 365 }));
+  }
+  // ---- end gate ----
+
   const market = [region, country].filter(Boolean).join(", ");
   const anthropic = createAnthropic({ apiKey });
 
@@ -157,5 +217,9 @@ export async function POST(req: Request) {
 
   // Plain text stream (the JSON body as it is generated). The client
   // accumulates it, then parses the completed object.
-  return result.toTextStreamResponse();
+  const response = result.toTextStreamResponse();
+  for (const cookie of setCookies) {
+    response.headers.append("Set-Cookie", cookie);
+  }
+  return response;
 }

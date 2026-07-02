@@ -61,6 +61,7 @@ function buildSystemPrompt(): string {
 3. Check reputation via independent sources: Casino Guru, AskGamblers, Trustpilot (score AND review count), regulator warning lists, reputable industry press. Never treat the casino's own marketing as evidence.
 4. Search efficiently - you have a limited number of searches. Good queries: "<brand> <regulator> license register", "<brand> casino complaints casino guru", "<brand> holding company owner", "<brand> withdrawal limit terms".
 5. Score every criterion. Where you could not verify something, score conservatively and set confidence to "low" - never invent findings or sources.
+6. Findings are player-facing. Never mention your search budget, search limits, tools, or process in any finding, flag, or verdict. When something could not be verified, write it plainly, e.g. "No independent confirmation of X was found in this check" - state what IS known and what is not, not why.
 
 ## Safety criteria (score each 0-10)
 
@@ -149,7 +150,7 @@ export async function POST(req: Request) {
       },
     ],
     tools: {
-      web_search: anthropic.tools.webSearch_20260209({ maxUses: 10 }),
+      web_search: anthropic.tools.webSearch_20260209({ maxUses: 16 }),
     },
     maxOutputTokens: 8000,
   });

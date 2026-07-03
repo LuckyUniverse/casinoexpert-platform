@@ -64,7 +64,47 @@ export function SlotCheckClient() {
   const [stepIndex, setStepIndex] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const [brokenImages, setBrokenImages] = useState<Set<string>>(new Set());
+  const [extraImages, setExtraImages] = useState<{ url: string; caption: string }[]>([]);
   const abortRef = useRef<AbortController | null>(null);
+
+  // Once a result lands, harvest gallery images (screenshots first) from the
+  // client's review page and the provider's official page via list mode.
+  useEffect(() => {
+    setExtraImages([]);
+    if (!result) return;
+    const pages: { page: string; caption: string }[] = [];
+    if (result.resolved.clientReviewUrl) {
+      pages.push({
+        page: result.resolved.clientReviewUrl,
+        caption: `${result.resolved.gameName} on Penny Slot Machines`,
+      });
+    }
+    if (result.resolved.officialUrl) {
+      pages.push({
+        page: result.resolved.officialUrl,
+        caption: `${result.resolved.gameName} - official`,
+      });
+    }
+    let cancelled = false;
+    (async () => {
+      const collected: { url: string; caption: string }[] = [];
+      for (const p of pages) {
+        try {
+          const res = await fetch(`/api/game-image?list=1&page=${encodeURIComponent(p.page)}`);
+          const data = await res.json();
+          for (const url of data.images ?? []) {
+            collected.push({ url, caption: p.caption });
+          }
+        } catch {
+          /* gallery harvesting is best-effort */
+        }
+      }
+      if (!cancelled) setExtraImages(collected);
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [result]);
 
   useEffect(() => {
     if (phase !== "running") return;
@@ -135,27 +175,26 @@ export function SlotCheckClient() {
   const otherByKey = new Map(result?.otherRatings?.map((r) => [r.key, r]) ?? []);
 
   // All game imagery is served through /api/game-image (slot sites hotlink-
-  // block direct embeds). Model-found image URLs first, then og:images of
-  // the client's review page and the provider's official page as fallbacks.
+  // block direct embeds). Model-found screenshots first, then gallery images
+  // extracted from the client's review page and the provider's page (list
+  // mode sorts screenshots ahead of tiles). Broken images self-heal: they're
+  // hidden onError and the next candidate takes the slot.
   const imageCandidates: { url: string; caption: string }[] = [];
+  const seenSrc = new Set<string>();
+  const pushImage = (rawUrl: string, caption: string) => {
+    if (seenSrc.has(rawUrl)) return;
+    seenSrc.add(rawUrl);
+    imageCandidates.push({
+      url: `/api/game-image?src=${encodeURIComponent(rawUrl)}`,
+      caption,
+    });
+  };
   if (result) {
     for (const img of result.images ?? []) {
-      imageCandidates.push({
-        url: `/api/game-image?src=${encodeURIComponent(img.url)}`,
-        caption: img.caption || result.resolved.gameName,
-      });
+      pushImage(img.url, img.caption || result.resolved.gameName);
     }
-    if (result.resolved.clientReviewUrl) {
-      imageCandidates.push({
-        url: `/api/game-image?page=${encodeURIComponent(result.resolved.clientReviewUrl)}`,
-        caption: `${result.resolved.gameName} on Penny Slot Machines`,
-      });
-    }
-    if (result.resolved.officialUrl) {
-      imageCandidates.push({
-        url: `/api/game-image?page=${encodeURIComponent(result.resolved.officialUrl)}`,
-        caption: `${result.resolved.gameName} - official page`,
-      });
+    for (const extra of extraImages) {
+      pushImage(extra.url, extra.caption);
     }
   }
   const visibleImages = imageCandidates.filter((img) => !brokenImages.has(img.url)).slice(0, 4);

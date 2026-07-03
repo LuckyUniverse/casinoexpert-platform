@@ -96,6 +96,14 @@ Writing rules: plain hyphens only (no em or en dashes), no marketing language, c
 }
 
 export async function POST(req: Request) {
+  // Demo endpoint - dark unless SLOT_CHECK_ENABLED=1 (see app/slot-check/page.tsx)
+  if (process.env.SLOT_CHECK_ENABLED !== "1") {
+    return new Response(JSON.stringify({ error: "Not found" }), {
+      status: 404,
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
   const apiKey = getApiKey();
   if (!apiKey) {
     return new Response(JSON.stringify({ error: "Slot check is not configured yet." }), {

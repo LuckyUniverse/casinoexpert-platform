@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import { notFound } from "next/navigation";
 import { SlotCheckClient } from "@/components/slot-check/SlotCheckClient";
 
 /**
@@ -19,6 +20,10 @@ export const metadata: Metadata = {
 };
 
 export default function SlotCheckPage() {
+  // Demo is off unless SLOT_CHECK_ENABLED=1 (set locally; unset in prod).
+  // To show the client: `vercel env add SLOT_CHECK_ENABLED production` with
+  // value 1, redeploy, and the page is live again.
+  if (process.env.SLOT_CHECK_ENABLED !== "1") notFound();
   return (
     <main className="mx-auto max-w-4xl px-4 py-10">
       <div className="mb-8">

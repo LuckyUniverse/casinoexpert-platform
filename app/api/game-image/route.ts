@@ -105,6 +105,11 @@ function extractGalleryImages(html: string, base: URL, limit: number): string[] 
 }
 
 export async function GET(req: Request) {
+  // Serves the slot-check demo only - dark unless SLOT_CHECK_ENABLED=1
+  if (process.env.SLOT_CHECK_ENABLED !== "1") {
+    return new NextResponse(null, { status: 404 });
+  }
+
   const params = new URL(req.url).searchParams;
   const src = params.get("src");
   const page = params.get("page");

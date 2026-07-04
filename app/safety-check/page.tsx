@@ -33,6 +33,12 @@ export default function SafetyCheckPage() {
           then score it on the criteria that actually predict whether players
           get paid.
         </p>
+        <p className="mt-1 text-sm text-gray-500">
+          Reports are date-stamped and refreshed every 6 months.{" "}
+          <a href="/safety-check/guide" className="text-blue-600 underline hover:text-blue-800">
+            How our checks work, and our affiliate transparency policy
+          </a>
+        </p>
       </div>
       <SafetyCheckClient />
     </main>

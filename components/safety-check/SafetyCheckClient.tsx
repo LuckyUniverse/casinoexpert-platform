@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AuthModal } from "@/components/auth/AuthModal";
+import { findAffiliate } from "@/lib/rating/affiliates";
 import {
   SAFETY_CRITERIA,
   OTHER_RATINGS,
@@ -183,6 +184,8 @@ export function SafetyCheckClient() {
   const [errorIsLimit, setErrorIsLimit] = useState(false);
   const [result, setResult] = useState<RatingResult | null>(null);
   const [checkedAt, setCheckedAt] = useState<Date | null>(null);
+  const [servedFromCache, setServedFromCache] = useState(false);
+  const [checkedCountry, setCheckedCountry] = useState("");
   const [stepIndex, setStepIndex] = useState(0);
   const [elapsed, setElapsed] = useState(0);
   const abortRef = useRef<AbortController | null>(null);
@@ -285,6 +288,22 @@ export function SafetyCheckClient() {
         }
         throw new Error(body?.error ?? `Check failed (${res.status})`);
       }
+
+      // Reports from the last 6 months are served instantly from our records
+      // as JSON (live checks stream as text).
+      if ((res.headers.get("content-type") ?? "").includes("application/json")) {
+        const body = await res.json();
+        if (body?.cached && body.result) {
+          setResult(body.result as RatingResult);
+          setCheckedAt(new Date(body.checkedAt));
+          setServedFromCache(true);
+          setCheckedCountry(country);
+          setPhase("done");
+          return;
+        }
+        throw new Error("Unexpected response");
+      }
+
       if (!res.body) throw new Error("No response stream");
 
       const reader = res.body.getReader();
@@ -303,6 +322,8 @@ export function SafetyCheckClient() {
       }
       setResult(parsed);
       setCheckedAt(new Date());
+      setServedFromCache(false);
+      setCheckedCountry(country);
       setPhase("done");
     } catch (err) {
       if ((err as Error).name === "AbortError") return;
@@ -313,6 +334,9 @@ export function SafetyCheckClient() {
 
   const score = result ? computeSafetyScore(result) : 0;
   const grade = gradeForScore(score);
+  const affiliate = result
+    ? findAffiliate(checkedCountry, result.resolved.brandName, casino)
+    : null;
   const colors = gradeColors(score);
   const criteriaByKey = new Map(result?.criteria.map((c) => [c.key, c]) ?? []);
   const otherByKey = new Map(result?.otherRatings?.map((r) => [r.key, r]) ?? []);
@@ -529,6 +553,39 @@ export function SafetyCheckClient() {
             {result.resolved.marketNote && (
               <p className="mt-2 text-sm text-gray-500">{result.resolved.marketNote}</p>
             )}
+
+            {/* Date stamp + affiliate */}
+            <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-gray-100 pt-4">
+              <span className="rounded-lg bg-gray-50 px-3 py-1.5 text-sm">
+                <span className="text-xs font-medium uppercase tracking-wide text-gray-400">Report date</span>{" "}
+                <span className="font-semibold text-gray-800">
+                  {checkedAt?.toLocaleDateString("en-CA", { year: "numeric", month: "long", day: "numeric" })}
+                </span>
+                {servedFromCache && (
+                  <span className="ml-2 text-xs text-gray-500">from our records</span>
+                )}
+              </span>
+              {affiliate && (
+                <a
+                  href={affiliate.url}
+                  target="_blank"
+                  rel="sponsored noopener nofollow"
+                  className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
+                >
+                  Visit {result.resolved.brandName}
+                </a>
+              )}
+            </div>
+            {affiliate && (
+              <p className="mt-2 text-xs text-gray-400">
+                Affiliate link. Live checks cost us money to run; partnerships
+                like this keep the tool free. Scores are never influenced -{" "}
+                <a href="/safety-check/guide" className="underline hover:text-gray-600">
+                  how this works
+                </a>
+                .
+              </p>
+            )}
           </div>
 
           {/* Flags */}
@@ -634,14 +691,17 @@ export function SafetyCheckClient() {
 
           {/* Footer note */}
           <p className="text-xs text-gray-400">
-            Checked live{" "}
-            {checkedAt
-              ? `on ${checkedAt.toLocaleDateString("en-CA")} at ${checkedAt.toLocaleTimeString()}`
-              : "just now"}{" "}
+            {servedFromCache
+              ? `Served from our review records (checked ${checkedAt?.toLocaleDateString("en-CA")}). Reports refresh after 6 months. `
+              : `Checked live ${checkedAt ? `on ${checkedAt.toLocaleDateString("en-CA")} at ${checkedAt.toLocaleTimeString()}` : "just now"} `}
             using regulator registers, complaint portals, and company records.
             The safety score weights licensing and operator track record most
             heavily. This is an automated assessment for information only, not
-            legal or financial advice. 19+/18+ - please gamble responsibly.
+            legal or financial advice. 19+/18+ - please gamble responsibly.{" "}
+            <a href="/safety-check/guide" className="underline hover:text-gray-600">
+              How our checks work
+            </a>
+            .
           </p>
         </div>
       )}

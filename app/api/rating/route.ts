@@ -6,6 +6,7 @@ import { SAFETY_CRITERIA, OTHER_RATINGS } from "@/lib/rating/criteria";
 import { getUserFromRequest, serializeCookie } from "@/lib/auth/session";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { hashIp, hasUsedFreeCheck, markFreeCheckUsed, overLimit } from "@/lib/auth/rate-limit";
+import { getCachedRating, storeRating, parseRatingText } from "@/lib/rating/cache";
 
 /**
  * Live casino safety check (/safety-check).
@@ -150,6 +151,10 @@ export async function POST(req: Request) {
   const setCookies: string[] = [];
   const userId = await getUserFromRequest();
   let allowed = false;
+  // Daily quota applies only to live API runs (cache hits are free for us),
+  // so it's evaluated after the cache lookup below. Admins are exempt.
+  let quotaUserId: string | null = null;
+  let quotaExempt = false;
 
   if (userId) {
     const { data: user } = await getSupabaseAdmin()
@@ -158,23 +163,13 @@ export async function POST(req: Request) {
       .eq("id", userId)
       .single();
     if (user && user.email_verified_at) {
-      // Admins (DB flag, or listed in ADMIN_EMAILS) skip the daily quota.
       const adminEmails = (process.env.ADMIN_EMAILS ?? "")
         .toLowerCase()
         .split(",")
         .map((e) => e.trim())
         .filter(Boolean);
-      const isAdmin = user.is_admin === true || adminEmails.includes(user.email.toLowerCase());
-
-      if (!isAdmin && (await overLimit(`cex:checks:user:${userId}`, 5, 60 * 60 * 24))) {
-        return new Response(
-          JSON.stringify({
-            error: "You've reached your 5 checks for today. Your allowance resets 24 hours after your first check.",
-            code: "daily_limit",
-          }),
-          { status: 429, headers: { "Content-Type": "application/json" } }
-        );
-      }
+      quotaExempt = user.is_admin === true || adminEmails.includes(user.email.toLowerCase());
+      quotaUserId = userId;
       allowed = true;
     } else if (user) {
       return new Response(
@@ -214,6 +209,31 @@ export async function POST(req: Request) {
   }
   // ---- end gate ----
 
+  // ---- 6-month report cache ----
+  // A brand looked up for this market within the window is served from our
+  // records: no API spend, stable score, original date stamp preserved.
+  const cached = await getCachedRating(casino, country, region ?? "");
+  if (cached) {
+    const response = new Response(
+      JSON.stringify({ cached: true, checkedAt: cached.checkedAt, result: cached.result }),
+      { headers: { "Content-Type": "application/json" } }
+    );
+    for (const cookie of setCookies) response.headers.append("Set-Cookie", cookie);
+    return response;
+  }
+
+  // Live run from here - this is what actually costs money, so the daily
+  // quota bites now (cache hits above are unlimited).
+  if (quotaUserId && !quotaExempt && (await overLimit(`cex:checks:user:${quotaUserId}`, 5, 60 * 60 * 24))) {
+    return new Response(
+      JSON.stringify({
+        error: "You've reached your 5 live checks for today. Your allowance resets 24 hours after your first check. Recently checked brands are always available.",
+        code: "daily_limit",
+      }),
+      { status: 429, headers: { "Content-Type": "application/json" } }
+    );
+  }
+
   const market = [region, country].filter(Boolean).join(", ");
   const anthropic = createAnthropic({ apiKey });
 
@@ -230,6 +250,14 @@ export async function POST(req: Request) {
       web_search: anthropic.tools.webSearch_20260209({ maxUses: 16 }),
     },
     maxOutputTokens: 8000,
+    onFinish: async ({ text }) => {
+      // Archive the completed report so the next 6 months of lookups for
+      // this brand/market are served from cex_ratings instead of the API.
+      const parsed = parseRatingText(text);
+      if (parsed) {
+        await storeRating(casino, country, region ?? "", parsed);
+      }
+    },
   });
 
   // Plain text stream (the JSON body as it is generated). The client

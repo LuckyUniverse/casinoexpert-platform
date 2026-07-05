@@ -50,6 +50,30 @@ export async function hasUsedFreeCheck(anonId: string, ipHash: string): Promise<
   }
 }
 
+/**
+ * Remember inputs the preflight rejected so repeated gibberish costs zero.
+ * 24h TTL: if the brand launches tomorrow, we'll find it tomorrow.
+ */
+export async function isKnownNotFound(key: string): Promise<boolean> {
+  const redis = client();
+  if (!redis) return false;
+  try {
+    return Boolean(await redis.get(`cex:notfound:${key}`));
+  } catch {
+    return false;
+  }
+}
+
+export async function markNotFound(key: string): Promise<void> {
+  const redis = client();
+  if (!redis) return;
+  try {
+    await redis.set(`cex:notfound:${key}`, 1, { ex: 60 * 60 * 24 });
+  } catch {
+    /* best effort */
+  }
+}
+
 /** Record the free check against both the anon cookie id and the IP. */
 export async function markFreeCheckUsed(anonId: string, ipHash: string): Promise<void> {
   const redis = client();

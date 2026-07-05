@@ -273,10 +273,10 @@ export function SafetyCheckClient() {
           setAuthOpen(true);
           return;
         }
-        if (body?.code === "daily_limit") {
+        if (body?.code === "daily_limit" || body?.code === "casino_not_found") {
           setPhase("error");
           setError(body.error);
-          setErrorIsLimit(true);
+          setErrorIsLimit(true); // suppresses the generic "try again" hint
           return;
         }
         if (body?.code === "verify_email") {
@@ -317,6 +317,16 @@ export function SafetyCheckClient() {
       text += decoder.decode();
 
       const parsed = extractJson(text);
+      // Backstop: the engine aborts with {"notFound": true} when it can't
+      // identify the casino mid-run (the cheap preflight catches most cases).
+      if ((parsed as unknown as { notFound?: boolean }).notFound) {
+        setPhase("error");
+        setError(
+          `We couldn't find an online casino matching "${casino.trim()}". Check the spelling, or try the casino's website address.`
+        );
+        setErrorIsLimit(true);
+        return;
+      }
       if (!Array.isArray(parsed.criteria) || !parsed.resolved || !parsed.verdict) {
         throw new Error("The check returned an incomplete result");
       }

@@ -5,8 +5,16 @@ import { streamText } from "ai";
 import { SAFETY_CRITERIA, OTHER_RATINGS } from "@/lib/rating/criteria";
 import { getUserFromRequest, serializeCookie } from "@/lib/auth/session";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
-import { hashIp, hasUsedFreeCheck, markFreeCheckUsed, overLimit } from "@/lib/auth/rate-limit";
-import { getCachedRating, storeRating, parseRatingText } from "@/lib/rating/cache";
+import {
+  hashIp,
+  hasUsedFreeCheck,
+  markFreeCheckUsed,
+  overLimit,
+  isKnownNotFound,
+  markNotFound,
+} from "@/lib/auth/rate-limit";
+import { getCachedRating, storeRating, parseRatingText, normalizeCasinoKey } from "@/lib/rating/cache";
+import { verifyCasinoExists, looksLikeGibberish } from "@/lib/rating/preflight";
 
 /**
  * Live casino safety check (/safety-check).
@@ -62,6 +70,7 @@ function buildSystemPrompt(): string {
 
 ## Method
 
+0. Existence check first. If after at most 2 searches you cannot identify a real online casino plausibly matching the input, STOP immediately and output ONLY {"notFound": true} - do not run further searches and do not produce the full schema.
 1. Resolve the brand for THIS market first. Many brands run different sites per market (e.g. a .com offshore site vs a locally licensed .co.uk or .ca site). Assess the site a player in the given market would actually be served. Note the distinction in resolved.marketNote.
 2. Verify licensing against primary sources wherever possible: the regulator's own public register (UKGC register, MGA licensee register, iGO/AGCO lists, state regulator sites). Prefer the register over the casino's own footer claims.
 3. Check reputation via independent sources: Casino Guru, AskGamblers, Trustpilot (score AND review count), regulator warning lists, reputable industry press. Never treat the casino's own marketing as evidence.
@@ -155,6 +164,7 @@ export async function POST(req: Request) {
   // so it's evaluated after the cache lookup below. Admins are exempt.
   let quotaUserId: string | null = null;
   let quotaExempt = false;
+  let anonToMark: { anonId: string; ipHash: string } | null = null;
 
   if (userId) {
     const { data: user } = await getSupabaseAdmin()
@@ -204,23 +214,73 @@ export async function POST(req: Request) {
       );
     }
 
-    await markFreeCheckUsed(anonId, ipHash);
-    setCookies.push(serializeCookie("cex_free", "used", { maxAge: 60 * 60 * 24 * 365 }));
+    // Eligible - but don't burn the free check yet. It's consumed only when
+    // we actually deliver a report (cached or live), so a typo or an
+    // unknown casino doesn't cost an anonymous visitor their one check.
+    anonToMark = { anonId, ipHash };
   }
   // ---- end gate ----
+
+  const consumeAnonFreeCheck = async () => {
+    if (!anonToMark) return;
+    await markFreeCheckUsed(anonToMark.anonId, anonToMark.ipHash);
+    setCookies.push(serializeCookie("cex_free", "used", { maxAge: 60 * 60 * 24 * 365 }));
+    anonToMark = null;
+  };
 
   // ---- 6-month report cache ----
   // A brand looked up for this market within the window is served from our
   // records: no API spend, stable score, original date stamp preserved.
-  const cached = await getCachedRating(casino, country, region ?? "");
-  if (cached) {
+  const serveCached = async (hit: { checkedAt: string; result: unknown }) => {
+    await consumeAnonFreeCheck();
     const response = new Response(
-      JSON.stringify({ cached: true, checkedAt: cached.checkedAt, result: cached.result }),
+      JSON.stringify({ cached: true, checkedAt: hit.checkedAt, result: hit.result }),
       { headers: { "Content-Type": "application/json" } }
     );
     for (const cookie of setCookies) response.headers.append("Set-Cookie", cookie);
     return response;
+  };
+
+  const cached = await getCachedRating(casino, country, region ?? "");
+  if (cached) return serveCached(cached);
+
+  // ---- Preflight: don't spend real money on gibberish or ghosts ----
+  // Free heuristics + remembered rejections first, then a ~1 cent
+  // Haiku + 1-2 searches existence check. Only confirmed brands reach
+  // the expensive engine. Nothing here consumes the free check or quota.
+  const notFoundResponse = () => {
+    const response = new Response(
+      JSON.stringify({
+        error: `We couldn't find an online casino matching "${casino.trim().slice(0, 60)}". Check the spelling, or try the casino's website address.`,
+        code: "casino_not_found",
+      }),
+      { status: 404, headers: { "Content-Type": "application/json" } }
+    );
+    for (const cookie of setCookies) response.headers.append("Set-Cookie", cookie);
+    return response;
+  };
+
+  const inputKey = normalizeCasinoKey(casino);
+  if (looksLikeGibberish(casino) || !inputKey || (await isKnownNotFound(inputKey))) {
+    return notFoundResponse();
   }
+
+  let verifiedName = casino.trim();
+  const preflight = await verifyCasinoExists(apiKey, casino, country);
+  if (preflight.status === "not_found") {
+    await markNotFound(inputKey);
+    return notFoundResponse();
+  }
+  if (preflight.status === "exists") {
+    verifiedName = preflight.canonicalName;
+    // The canonical name may hit a report the raw input's key missed
+    // (e.g. "jackpot city casino online" -> "Jackpot City").
+    if (normalizeCasinoKey(verifiedName) !== inputKey) {
+      const canonicalHit = await getCachedRating(verifiedName, country, region ?? "");
+      if (canonicalHit) return serveCached(canonicalHit);
+    }
+  }
+  // ---- end preflight ----
 
   // Live run from here - this is what actually costs money, so the daily
   // quota bites now (cache hits above are unlimited).
@@ -234,6 +294,9 @@ export async function POST(req: Request) {
     );
   }
 
+  // A report is about to be produced - now the free check is consumed.
+  await consumeAnonFreeCheck();
+
   const market = [region, country].filter(Boolean).join(", ");
   const anthropic = createAnthropic({ apiKey });
 
@@ -243,7 +306,7 @@ export async function POST(req: Request) {
     messages: [
       {
         role: "user",
-        content: `Casino: ${casino.trim().slice(0, 100)}\nPlayer market: ${market.slice(0, 100)}\n\nRun the live safety check now.`,
+        content: `Casino: ${casino.trim().slice(0, 100)}${verifiedName !== casino.trim() ? `\nVerified brand name: ${verifiedName.slice(0, 100)}` : ""}\nPlayer market: ${market.slice(0, 100)}\n\nRun the live safety check now.`,
       },
     ],
     tools: {
@@ -272,7 +335,9 @@ export async function POST(req: Request) {
       // this brand/market are served from cex_ratings instead of the API.
       const parsed = parseRatingText(text);
       if (parsed) {
-        await storeRating(casino, country, region ?? "", parsed, u);
+        // Stored under the verified brand name so spelling variants of the
+        // same casino dedupe onto one report.
+        await storeRating(verifiedName, country, region ?? "", parsed, u);
       }
     },
   });

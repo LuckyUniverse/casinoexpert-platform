@@ -247,15 +247,32 @@ export async function POST(req: Request) {
       },
     ],
     tools: {
-      web_search: anthropic.tools.webSearch_20260209({ maxUses: 16 }),
+      // 12 searches balances coverage vs cost: the server-side search loop
+      // re-reads accumulated context each round, so input cost grows
+      // super-linearly with the cap.
+      web_search: anthropic.tools.webSearch_20260209({ maxUses: 12 }),
     },
     maxOutputTokens: 8000,
-    onFinish: async ({ text }) => {
+    onFinish: async ({ text, usage }) => {
+      // Exact spend per check -> Vercel logs + stored with the report.
+      // Opus 4.8: $5/M input, $25/M output (searches billed separately at $10/1k).
+      const u = {
+        inputTokens: usage?.inputTokens,
+        outputTokens: usage?.outputTokens,
+        cachedInputTokens: usage?.cachedInputTokens,
+        totalTokens: usage?.totalTokens,
+      };
+      const estUsd =
+        ((u.inputTokens ?? 0) * 5 + (u.outputTokens ?? 0) * 25) / 1_000_000;
+      console.log(
+        JSON.stringify({ tag: "rating-usage", casino: casino.trim(), country, region, ...u, estTokenCostUsd: Number(estUsd.toFixed(3)) })
+      );
+
       // Archive the completed report so the next 6 months of lookups for
       // this brand/market are served from cex_ratings instead of the API.
       const parsed = parseRatingText(text);
       if (parsed) {
-        await storeRating(casino, country, region ?? "", parsed);
+        await storeRating(casino, country, region ?? "", parsed, u);
       }
     },
   });

@@ -148,6 +148,19 @@ export async function POST(req: Request) {
       web_fetch: anthropic.tools.webFetch_20260209({ maxUses: 6 }),
     },
     maxOutputTokens: 8000,
+    onFinish: async ({ usage }) => {
+      const estUsd =
+        ((usage?.inputTokens ?? 0) * 5 + (usage?.outputTokens ?? 0) * 25) / 1_000_000;
+      console.log(
+        JSON.stringify({
+          tag: "slot-rating-usage",
+          game: game.trim(),
+          inputTokens: usage?.inputTokens,
+          outputTokens: usage?.outputTokens,
+          estTokenCostUsd: Number(estUsd.toFixed(3)),
+        })
+      );
+    },
   });
 
   return result.toTextStreamResponse();

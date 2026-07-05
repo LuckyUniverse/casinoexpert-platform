@@ -61,7 +61,8 @@ export async function storeRating(
   casino: string,
   country: string,
   region: string,
-  result: RatingResult
+  result: RatingResult,
+  usage?: Record<string, number | undefined>
 ): Promise<void> {
   const key = normalizeCasinoKey(casino);
   if (!key) return;
@@ -74,6 +75,7 @@ export async function storeRating(
       casino_input: casino.trim().slice(0, 100),
       brand_name: result.resolved?.brandName ?? null,
       result,
+      usage: usage ?? null,
     });
   } catch (err) {
     console.error("Failed to store rating:", err);

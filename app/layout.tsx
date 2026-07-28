@@ -34,6 +34,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  // Smart App Banner (iOS Safari) -> Casino Reviews Canada. Web-to-app:
+  // banner clicks convert ~15% (Branch, 12M-link dataset); CA traffic only
+  // sees a CA-available app. AdServices attribution unaffected (web installs
+  // never carry ASA tokens).
+  itunes: { appId: "6780451925" },
   metadataBase: new URL("https://casinoexpert.ai"),
   title: {
     default: "CasinoExpert AI - Your Ultimate, Factual, Objective Casino Guide for Canada",

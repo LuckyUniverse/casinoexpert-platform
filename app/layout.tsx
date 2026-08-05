@@ -66,6 +66,11 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(rootJsonLd) }}
         />
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="7Uf/5XAV36dCnszyRY1/9A"
+          async
+        />
         <SiteHeader />
         <ContentChatBanner />
         {children}

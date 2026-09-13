@@ -75,6 +75,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      // Rebuilt every 15 minutes off the win feeds, so it is genuinely the
+      // freshest page on the site - hence daily rather than the brand pages'
+      // weekly, and its own lastModified instead of the review-derived one.
+      url: `${BASE}/winners`,
+      lastModified: new Date().toISOString().slice(0, 10),
+      changeFrequency: "daily",
+      priority: 0.7,
+    },
+    {
       url: `${BASE}/payments`,
       lastModified: freshest,
       changeFrequency: "monthly",
